@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_menu_add">Añadir</string>
+    <string name="list_menu_listSettings">Ajustes de lista</string>
+    <string name="list_menu_abandon">Abandonar lista</string>
+</resources>
