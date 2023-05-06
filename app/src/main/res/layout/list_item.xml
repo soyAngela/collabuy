@@ -22,7 +22,7 @@
             android:layout_height="72dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@android:drawable/ic_menu_gallery" />
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <TextView
             android:id="@+id/list_productName"
@@ -50,7 +50,6 @@
             android:id="@+id/list_productAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/list_productBuy"
@@ -61,6 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/green_quaternary"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

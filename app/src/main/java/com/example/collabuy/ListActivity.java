@@ -3,13 +3,17 @@ package com.example.collabuy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,9 +51,9 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void createList(){
-        final Integer[] idList = {1,2,3,4,5,6,7,8,9,10};
-        final String[] nameList={"alumno1","alumno2","alumno3","alumno4","alumno5","alumno6","alumno7","alumno8","alumno9","alumno10"};
-        final Integer[] ageList={22,23,24,25,26,27,28,29,30,31};
+        final Integer[] idList = {0,1,2,3,4,5,6,7,8,9};
+        final String[] nameList={"producto1","producto2","producto3","producto4","producto5","producto6","producto7","producto8","producto9","producto10"};
+        final Integer[] amountList={22,23,24,25,26,27,28,29,30,31};
         ArrayAdapter productAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1,nameList){
                     @Override
@@ -58,15 +62,27 @@ public class ListActivity extends AppCompatActivity {
                         TextView name=(TextView) panel.findViewById(R.id.list_productName);
                         TextView age=(TextView) panel.findViewById(R.id.list_productAmount);
                         name.setText(nameList[position]);
-                        age.setText(ageList[position].toString());
+                        age.setText(amountList[position].toString());
 
                         //When a product is clicked show its content in ProductActivity
                         panel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(ListActivity.this, "Show product " + idList[position], Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(ListActivity.this, ProductActivity.class);
+                                i.putExtra("id",idList[position]);
+                                ListActivity.this.startActivity(i);
                             }
                         });
+
+                        ImageButton buyButton = panel.findViewById(R.id.list_productBuy);
+                        buyButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("ListRegistry", "Bought " + nameList[position] + " at list " + "Lista de la compra");
+                                Toast.makeText(ListActivity.this, "Bought product " + idList[position], Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         return panel;
                     }
                 };
