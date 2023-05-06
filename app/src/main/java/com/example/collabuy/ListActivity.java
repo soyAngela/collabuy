@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,11 +54,11 @@ public class ListActivity extends AppCompatActivity {
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1,nameList){
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
-                        View panel= super.getView(position, convertView, parent);
-                        TextView lineaprincipal=(TextView) panel.findViewById(android.R.id.text1);
-                        TextView lineasecundaria=(TextView) panel.findViewById(android.R.id.text2);
-                        lineaprincipal.setText(nameList[position]);
-                        lineasecundaria.setText(ageList[position].toString());
+                        View panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+                        TextView name=(TextView) panel.findViewById(R.id.list_productName);
+                        TextView age=(TextView) panel.findViewById(R.id.list_productAmount);
+                        name.setText(nameList[position]);
+                        age.setText(ageList[position].toString());
 
                         //When a product is clicked show its content in ProductActivity
                         panel.setOnClickListener(new View.OnClickListener() {

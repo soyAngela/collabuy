@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Collabuy"
         tools:targetApi="31">
         <activity
+            android:name=".ProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity">
