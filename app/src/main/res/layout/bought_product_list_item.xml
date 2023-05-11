@@ -17,48 +17,50 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/list_productImage"
+            android:id="@+id/boughtList_productImage"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:alpha="127"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <TextView
-            android:id="@+id/list_productName"
+            android:id="@+id/boughtList_productName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/list_divider"
-            app:layout_constraintStart_toEndOf="@id/list_productImage"
+            app:layout_constraintEnd_toStartOf="@+id/boughtList_divider"
+            app:layout_constraintStart_toEndOf="@id/boughtList_productImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/list_divider"
+            android:id="@+id/boughtList_divider"
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginEnd="10dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/list_productAmount"
+            app:layout_constraintEnd_toStartOf="@+id/boughtList_productAmount"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/list_productAmount"
+            android:id="@+id/boughtList_productAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/list_productBuy"
+            app:layout_constraintEnd_toStartOf="@+id/boughtList_productBuy"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/list_productBuy"
+            android:id="@+id/boughtList_productBuy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="0"
             android:background="@color/green_quaternary"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,13 +54,16 @@ public class ListActivity extends AppCompatActivity {
         final Integer[] idList = {0,1,2,3,4,5,6,7,8,9};
         final String[] nameList={"producto1","producto2","producto3","producto4","producto5","producto6","producto7","producto8","producto9","producto10"};
         final Integer[] amountList={22,23,24,25,26,27,28,29,30,31};
+        final boolean[] boughtList={false,false,false,false,true,false,false,true,true,false};
         ArrayAdapter productAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1,nameList){
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
-                        View panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
-                        TextView name=(TextView) panel.findViewById(R.id.list_productName);
-                        TextView age=(TextView) panel.findViewById(R.id.list_productAmount);
+                        View panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item,parent,false);
+                        TextView name=(TextView) panel.findViewById(R.id.boughtList_productName);
+                        if (boughtList[position])
+                            name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        TextView age=(TextView) panel.findViewById(R.id.boughtList_productAmount);
                         name.setText(nameList[position]);
                         age.setText(amountList[position].toString());
 
@@ -74,7 +77,7 @@ public class ListActivity extends AppCompatActivity {
                             }
                         });
 
-                        ImageButton buyButton = panel.findViewById(R.id.list_productBuy);
+                        ImageButton buyButton = panel.findViewById(R.id.boughtList_productBuy);
                         buyButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
