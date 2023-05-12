@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:padding="10dp">
+        android:padding="7dp">
 
         <ImageView
-            android:id="@+id/boughtList_productImage"
+            android:id="@+id/list_productImage"
             android:layout_width="72dp"
             android:layout_height="72dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,48 +25,51 @@
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <TextView
-            android:id="@+id/boughtList_productName"
+            android:id="@+id/list_productName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/boughtList_divider"
-            app:layout_constraintStart_toEndOf="@id/boughtList_productImage"
+            app:layout_constraintEnd_toStartOf="@+id/list_divider"
+            app:layout_constraintStart_toEndOf="@id/list_productImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/boughtList_divider"
+            android:id="@+id/list_divider"
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginEnd="10dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/boughtList_productAmount"
+            app:layout_constraintEnd_toStartOf="@+id/list_productAmount"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/boughtList_productAmount"
+            android:id="@+id/list_productAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/boughtList_productBuy"
+            app:layout_constraintEnd_toStartOf="@+id/list_productBuy"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--Basket icon created by Marcus Christensen from Flaticon: https://www.flaticon.com/free-icon/basket_8300969?term=shopping+basket&page=1&position=73&origin=search&related_id=8300969-->
         <ImageButton
-            android:id="@+id/boughtList_productBuy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/list_productBuy"
+            android:layout_width="62dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@color/green_quaternary"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
-            android:paddingRight="10dp"
+            android:paddingRight="5dp"
             android:paddingBottom="10dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            app:srcCompat="@drawable/basket" /> <!--https://stackoverflow.com/a/15117536-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

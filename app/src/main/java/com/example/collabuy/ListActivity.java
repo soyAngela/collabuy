@@ -59,11 +59,21 @@ public class ListActivity extends AppCompatActivity {
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1,nameList){
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
-                        View panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item,parent,false);
-                        TextView name=(TextView) panel.findViewById(R.id.boughtList_productName);
+                        View panel;
+
+                        //Both layouts have the very same elements and IDs
+                        if (boughtList[position])
+                            panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.bought_product_list_item,parent,false);
+                        else
+                            panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item,parent,false);
+
+                        TextView name = (TextView) panel.findViewById(R.id.list_productName);
+
+                        //Cross the product name out if bought
                         if (boughtList[position])
                             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        TextView age=(TextView) panel.findViewById(R.id.boughtList_productAmount);
+
+                        TextView age = (TextView) panel.findViewById(R.id.list_productAmount);
                         name.setText(nameList[position]);
                         age.setText(amountList[position].toString());
 
@@ -77,14 +87,27 @@ public class ListActivity extends AppCompatActivity {
                             }
                         });
 
-                        ImageButton buyButton = panel.findViewById(R.id.boughtList_productBuy);
-                        buyButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Log.d("ListRegistry", "Bought " + nameList[position] + " at list " + "Lista de la compra");
-                                Toast.makeText(ListActivity.this, "Bought product " + idList[position], Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        ImageButton buyButton = panel.findViewById(R.id.list_productBuy);
+
+                        if (!boughtList[position]) {
+                            //Mark the product as bought when clicking on the shopping basket
+                            buyButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Log.d("ListRegistry", "Bought " + nameList[position] + " at list " + "Lista de la compra");
+                                    Toast.makeText(ListActivity.this, "Bought product " + idList[position], Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }else{
+                            //Cancel the purchase of the product when clicking on the cross
+                            buyButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Log.d("ListRegistry", "Cancelled " + nameList[position] + " at list " + "Lista de la compra");
+                                    Toast.makeText(ListActivity.this, "Cancelled product " + idList[position], Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
 
                         return panel;
                     }
