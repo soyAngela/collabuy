@@ -1,6 +1,3 @@
 <resources>
-    <string name="app_name" translatable="false">Collabuy</string>
-    <string name="list_menu_add">Add</string>
-    <string name="list_menu_listSettings">List Settings</string>
-    <string name="list_menu_abandon">Abandon list</string>
+    <string name="app_name">collabuy</string>
 </resources>
