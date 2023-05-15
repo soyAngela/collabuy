@@ -15,11 +15,21 @@
             android:name=".ProductActivity"
             android:exported="false"
             android:parentActivityName=".ListActivity"/>
+
         <activity
             android:name=".ListActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity">
         </activity>
+
+        <activity
+            android:name=".InicioSesion"
+            android:exported="false" />
+
+        <activity
+            android:name=".Registro"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
