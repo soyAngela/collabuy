@@ -29,6 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".pantalla_bienvenida"
+            android:exported="true"></activity>
+
     </application>
 
 </manifest>
