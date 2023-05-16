@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_tertiary"
+    tools:context=".NuevaLista">
+
+
+    <TextView
+        android:id="@+id/texto_nueva_lista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:layout_marginBottom="89dp"
+        android:fontFamily="@font/montserratregular"
+        android:gravity="center_horizontal"
+        android:text="Acceder a lista"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText_nombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_nombre"
+        android:layout_width="241dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:background="@color/green_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/editText_clave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texto_nueva_lista" />
+
+    <EditText
+        android:id="@+id/editText_clave"
+        android:layout_width="241dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="58dp"
+        android:ems="10"
+        android:hint="Clave"
+        android:inputType="textPersonName"
+        android:background="@color/green_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/btn_anadir_lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_nombre" />
+
+    <Button
+        android:id="@+id/btn_anadir_lista"
+        android:layout_width="202dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="40dp"
+        android:text="Añadir Lista"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/green_gray"
+        app:layout_constraintBottom_toTopOf="@+id/btn_crear_lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_clave" />
+
+    <Button
+        android:id="@+id/btn_crear_lista"
+        android:layout_width="202dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="93dp"
+        android:text="Crear Lista"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/green_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_anadir_lista" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

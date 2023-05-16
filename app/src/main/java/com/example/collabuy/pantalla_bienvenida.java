@@ -2,6 +2,7 @@ package com.example.collabuy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,11 @@ public class pantalla_bienvenida extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
     // configurar xml dependiendo de la orientación
-        setContentView(R.layout.usuario_bienvenida);
+        if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
+            setContentView(R.layout.usuario_bienvenida_land);
+        }else{
+            setContentView(R.layout.usuario_bienvenida);
+        }
 
     // declaración de objetos
         ListView listaListas = findViewById(R.id.listaNombres);
