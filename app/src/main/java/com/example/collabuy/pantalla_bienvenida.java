@@ -51,4 +51,8 @@ public class pantalla_bienvenida extends AppCompatActivity {
         });
     }
 
+    public void obtenerListaListas(){
+        //conexion con la bbdd mediante el php y obtener datos JSON
+    }
+
 }

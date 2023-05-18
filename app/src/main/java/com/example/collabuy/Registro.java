@@ -40,6 +40,7 @@ public class Registro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: Resultado del boton de registro
+                // Intent a pantalla_bienvenida
             }
         });
     }

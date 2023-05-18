@@ -39,6 +39,7 @@ public class InicioSesion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: Resultado del boton de iniciar sesion
+                // te lleva a la pantalla_bienvenida.xml
             }
         });
     }
