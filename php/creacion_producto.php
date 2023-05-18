@@ -1,6 +1,6 @@
 <?php
 
-include 'conexion.php';
+include 'conexion_collabuy.php';
 
 $nombre = $_POST["nombre"];
 $descripcion = $_POST["descripcion"];
