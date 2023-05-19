@@ -18,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+
 public class ConexionPHP extends Worker {
 
     public ConexionPHP(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -45,6 +46,10 @@ public class ConexionPHP extends Worker {
             case "registro.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
                         .appendQueryParameter("contrasena", param.getString("contra"));
+                break;
+
+            case "obtenerListaListas.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"));
                 break;
 
             default:

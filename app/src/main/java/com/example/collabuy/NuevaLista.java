@@ -35,6 +35,10 @@ public class NuevaLista extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // AÑADIR LISTA A USUARIO
+                        // comprobarLista(claveLista.getText(), usuario);
+                        // anadirLista(claveLista.getText(), usuario);
+                        //      --> como obtener usuario?
+                        //                      + accedemos a la lista después de añadirla?
                 }
             });
 
@@ -43,6 +47,9 @@ public class NuevaLista extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // CREAR LISTA EN USUARIO
+                    // comprobarLista(claveLista.getText(), usuario);
+                    // crearLista(nombreLista.getText(), claveLista.getText(), usuario);
+                    //          --> obtener usuario como parámetro?
                 }
             });
 
