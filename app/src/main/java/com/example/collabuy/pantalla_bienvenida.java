@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,13 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.example.collabuy.adaptadores.ListaListasOverview;
 
 import java.util.ArrayList;
@@ -26,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class pantalla_bienvenida extends AppCompatActivity {
+    private ArrayList<String[]> publicaciones = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +45,10 @@ public class pantalla_bienvenida extends AppCompatActivity {
         datos.add("Fiesta fin de curso");
         datos.add("Compra del miércoles");
 
-        ListaListasOverview adaptador = new ListaListasOverview(datos, getApplicationContext());
+        //ListaListasOverview adaptador = new ListaListasOverview(datos, getApplicationContext());
 
-        listaListas.setAdapter(adaptador);
+
+        //listaListas.setAdapter(adaptador);
 
         // De la bbdd remota falta obtener el usuario que ha iniciado sesion
         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
@@ -143,7 +140,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
                     }
                 });
         WorkManager.getInstance(this).enqueue(otwr);*/
-        StringRequest request = new StringRequest(Request.Method.GET, "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/obtenerListaListas.php",
+        /*StringRequest request = new StringRequest(Request.Method.GET, "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/obtenerListaListas.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -173,9 +170,9 @@ public class pantalla_bienvenida extends AppCompatActivity {
         requestQueue.add(request);
 
         //conexion con la bbdd mediante el php y obtener datos JSON
-    }
+    }*/}
 
-    private void mostrarListas(String respuestaPHP) {
+    private void mostrarListas() {
         //llamada a metodo que coloque nombre y clave en overview + asignar onclick con idLista
     }
 
