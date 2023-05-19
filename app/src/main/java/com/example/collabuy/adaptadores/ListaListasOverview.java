@@ -17,11 +17,11 @@ import java.util.ArrayList;
 public class ListaListasOverview extends BaseAdapter implements View.OnClickListener{
 
     //  atributos
-    private ArrayList<String> lista;
+    private ArrayList<String[]> lista;
     private Context c;
     private View.OnClickListener listener;
 
-    public ListaListasOverview(ArrayList<String> listas, Context context){
+    public ListaListasOverview(ArrayList<String[]> listas, Context context){
         this.lista = listas;
         this.c = context;
     }
@@ -65,8 +65,8 @@ public class ListaListasOverview extends BaseAdapter implements View.OnClickList
         else{
             holder = (ViewHolder) view.getTag();
         }
-        holder.tituloTextView.setText(this.lista.get(i));
-        //holder.codigoTextView.setText(Integer.toString(i));
+        holder.tituloTextView.setText(this.lista.get(i)[1]);
+        holder.codigoTextView.setText(this.lista.get(i)[0]);
         return view;
     }
 

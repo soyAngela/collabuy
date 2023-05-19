@@ -12,16 +12,24 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 
 import com.example.collabuy.adaptadores.ListaListasOverview;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class pantalla_bienvenida extends AppCompatActivity {
-    private ArrayList<String[]> publicaciones = new ArrayList<>();
+    private ArrayList<String[]> listaFinal = new ArrayList<String[]>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,27 +42,22 @@ public class pantalla_bienvenida extends AppCompatActivity {
         }
 
     // declaración de objetos
-        ListView listaListas = findViewById(R.id.listaNombres);
+
         Button botonNuevaLista = findViewById(R.id.botonNuevaLista);
 
     // obtener datos de BBDD y cargar en la lista
 
         // De manera manual --> Funciona
-        ArrayList<String> datos = new ArrayList<String>();
+        /*ArrayList<String> datos = new ArrayList<String>();
         datos.add("Cumple Lucas");
         datos.add("Fiesta fin de curso");
-        datos.add("Compra del miércoles");
-
+        datos.add("Compra del miércoles");*/
         //ListaListasOverview adaptador = new ListaListasOverview(datos, getApplicationContext());
-
-
         //listaListas.setAdapter(adaptador);
 
         // De la bbdd remota falta obtener el usuario que ha iniciado sesion
         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-
-        obtenerListaListas(user); //con innerjoin Lista+Participación
-        //      --> nombre,clave (id para onClick)
+        obtenerListaListas("lucas");
 
     // cuando se pulsa el botón de nueva lista
         botonNuevaLista.setOnClickListener(new View.OnClickListener() {
@@ -67,113 +70,80 @@ public class pantalla_bienvenida extends AppCompatActivity {
         });
     }
 
-    public void obtenerListaListas(){
-        //conexion con la bbdd mediante el php y obtener datos JSON
-    }
-
     public void obtenerListaListas(String pUsuario){
-        /*
-        //atributo privado de clase
-        private ArrayList<String[]> publicaciones = new ArrayList<>();
 
-        //Recoger todas la publicaciones de la base de datos para poder mostrarlas
-        Data datos = new Data.Builder() // para pasar al worker
-                .putInt("metodo",0)
+        Data data = new Data.Builder()
+                .putString("url", "obtenerListaListas.php")
+                .putString("usuario",pUsuario)
                 .build();
-        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(MostrarBDWebService.class)
-                .setInputData(datos)
-                .build();
-        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())  //llama al worker
-                .observe(this, status -> {
-                    if (status != null && status.getState().isFinished()) {
-                        String result = status.getOutputData().getString("result");
-                        //Se almacena en el String result lo devuelto por el servicio web
-                        if(!result.equals("null")) {
-                            JSONArray jsonArray = null;
-                            try {
-                                //Se transforma a un jsonArray el String con el resultado
-                                jsonArray = new JSONArray(result);
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                            //Se recorren todos los elementos del array
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                //Cada elemento del array es una publicación que contará con 2 elementos
-                                String[] publicacion = new String[2];
-                                String publicacionId = null;
-                                //Se guardan todos los elementos recogiendolos con sus respectivas claves
-                                try {
-                                    publicacionId = jsonArray.getJSONObject(i).getString("PublicacionId");
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
+
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if(workInfo != null && workInfo.getState().isFinished()){
+                            if(workInfo.getOutputData().getString("resultado") != null){
+                                // cargar los datos obtenidos en la lista
+                                String resultado = workInfo.getOutputData().getString("resultado");
+                                if(resultado!=null) {
+                                    JSONArray jsonArray = null;
+                                    try {
+                                        //Se transforma a un jsonArray el String con el resultado
+                                        jsonArray = new JSONArray(resultado);
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    //Se recorren todos los elementos del array
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        //Cada elemento del array es una publicación que contará con 2 elementos
+                                        String[] listas = new String[2];
+                                        String idLista = null;
+                                        //Se guardan todos los elementos recogiendolos con sus respectivas claves
+                                        try {
+                                            idLista = jsonArray.getJSONObject(i).getString("id");
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        listas[0] = idLista;
+                                        String nombre = null;
+                                        try {
+                                            nombre = jsonArray.getJSONObject(i).getString("nombre");
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        listas[1] = nombre;
+                                        String clave = null;
+                                        try {
+                                            clave = jsonArray.getJSONObject(i).getString("clave");
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        listas[2] = clave;
+                                        listaFinal.add(listas);
+                                    }
+                                    //Si hay al menos una publicación en el array se muestran
+                                    if (!listaFinal.isEmpty()){
+                                        mostrarListas(listaFinal);
+                                    }
                                 }
-                                publicacion[0] = publicacionId;
-                                String usuario = null;
-                                try {
-                                    usuario = jsonArray.getJSONObject(i).getString("Usuario");
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                publicacion[1] = usuario;
-                                String texto = null;
-                                try {
-                                    texto = jsonArray.getJSONObject(i).getString("Texto");
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                publicacion[2] = texto;
-                                String imagenId = null;
-                                try {
-                                    imagenId = jsonArray.getJSONObject(i).getString("ImagenId");
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                //Se añade la publicación al array de publicaciones que se ha inicializado previamente
-                                publicacion[3] = imagenId;
-                                publicaciones.add(publicacion);
-                            }
-                            //Si hay al menos una publicación en el array se muestran
-                            if (!publicaciones.isEmpty()){
-                                cargarRecyclerView();
+
+                            }else{
+                                Toast.makeText(pantalla_bienvenida.this, "No existen listas.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
-        WorkManager.getInstance(this).enqueue(otwr);*/
-        /*StringRequest request = new StringRequest(Request.Method.GET, "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/obtenerListaListas.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (response.isEmpty()) {
-                            Toast.makeText(pantalla_bienvenida.this, "No existen listas todavía", Toast.LENGTH_SHORT).show();
-                        }else{
-                            mostrarListas(response);
-                        }
-                    }
+        WorkManager.getInstance(this).enqueue(otwr);
+    }
 
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(pantalla_bienvenida.this, "ERROR CON LA CONEXION", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
 
-                //manera de encontrar el usuario
-                params.put("usuario", "usuario");
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(pantalla_bienvenida.this);
-        requestQueue.add(request);
-
-        //conexion con la bbdd mediante el php y obtener datos JSON
-    }*/}
-
-    private void mostrarListas() {
+    private void mostrarListas(ArrayList<String[]> pListaFinal) {
         //llamada a metodo que coloque nombre y clave en overview + asignar onclick con idLista
+        ListView listaListas = findViewById(R.id.listaNombres);
+        ListaListasOverview adaptador = new ListaListasOverview(pListaFinal, getApplicationContext());
+        listaListas.setAdapter(adaptador);
+
     }
 
 }
