@@ -1,6 +1,6 @@
 <?php
 
-include 'conexion.php';
+include 'conexion_collabuy.php';
 
 $usuario = $_POST["usuario"];
 $contrasena = $_POST["contrasena"];
