@@ -26,20 +26,17 @@
             android:name=".ListActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
             android:name=".InicioSesion"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
 
         <activity
             android:name=".Registro"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
 
         <activity
             android:name=".MainActivity"
@@ -57,11 +54,13 @@
 
         <activity
             android:name=".NuevaLista"
-            android:exported="true"/>
+            android:exported="true"
+            android:parentActivityName=".pantalla_bienvenida"/>
 
         <activity
             android:name=".CreacionProducto"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".ListActivity">
         </activity>
 
 

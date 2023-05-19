@@ -86,10 +86,10 @@ public class ProductListAdapter extends BaseAdapter {
                     Intent i = new Intent(c, ProductActivity.class);
                     try {
                         i.putExtra("id",element.getString("id"));
+                        c.startActivity(i);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    c.startActivity(i);
                 }
             });
 

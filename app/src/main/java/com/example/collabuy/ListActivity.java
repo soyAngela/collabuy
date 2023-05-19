@@ -32,12 +32,18 @@ import java.util.Objects;
 
 public class ListActivity extends AppCompatActivity {
 
+    private String listId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        Bundle extras = getIntent().getExtras();
+        listId = extras.getString("idLista");
+
         waitForList();
-        getSupportActionBar().setTitle("Lista de la compra");
+        getSupportActionBar().setTitle(extras.getString("nombreLista"));
     }
 
     @Override
@@ -73,7 +79,7 @@ public class ListActivity extends AppCompatActivity {
     private void waitForList(){
         Data data = new Data.Builder()
                 .putString("url", "obtenerListaProductos.php")
-                .putString("lista","4")
+                .putString("lista",listId)
                 .build();
 
         OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();

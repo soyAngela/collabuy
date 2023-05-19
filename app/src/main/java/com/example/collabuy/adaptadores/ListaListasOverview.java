@@ -86,6 +86,7 @@ public class ListaListasOverview extends BaseAdapter{
                 Intent intent = new Intent(c, ListActivity.class);
                 try {
                     intent.putExtra("idLista", elemento.getString("id"));
+                    intent.putExtra("nombreLista", elemento.getString("nombre"));
                     c.startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();
