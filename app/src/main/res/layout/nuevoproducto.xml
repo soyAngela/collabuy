@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/green_tertiary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,7 +23,7 @@
         android:layout_width="200dp"
         android:layout_height="255dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/borde"
+        android:background="@color/white"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/green_gray"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserratbold"
         android:text="Añadir producto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

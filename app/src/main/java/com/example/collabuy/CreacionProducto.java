@@ -1,6 +1,7 @@
 package com.example.collabuy;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -21,6 +23,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CreacionProducto extends AppCompatActivity {
 
@@ -30,10 +38,14 @@ public class CreacionProducto extends AppCompatActivity {
     private String fotoen64;
     private String nombreProducto;
     private String descripcion;
+    private String usuario;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SessionManager sM = SessionManager.getInstance(this);
+        usuario = sM.getUsername();
         setContentView(R.layout.nuevoproducto);
         imagen = (ImageView) findViewById(R.id.nuevaFoto);
         takePictureLauncher =
@@ -53,6 +65,13 @@ public class CreacionProducto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sacarFoto();
+            }
+        });
+        Button bNprod = (Button) findViewById(R.id.bNuevoProducto);
+        bNprod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                crearProducto();
             }
         });
     }
@@ -87,6 +106,40 @@ public class CreacionProducto extends AppCompatActivity {
         return fotoRedimensionada;
     }
 
+    private void crearProducto(){
+        thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    foto.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] fototransformada = stream.toByteArray();
+                    fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
+                    String parametros = "nombre=" + nombreProducto + "&descripcion=" + descripcion + "&imagen=" + fotoen64 + "&usuario=" + usuario;
+
+                    String direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/creacion_producto.php";
+                    HttpURLConnection urlConnection = null;
+                    URL destino = new URL(direccion);
+                    urlConnection = (HttpURLConnection) destino.openConnection();
+                    urlConnection.setConnectTimeout(5000);
+                    urlConnection.setReadTimeout(5000);
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+                    out.print(parametros.toString());
+                    out.close();
+                    int statusCode = 0;
+                    statusCode = urlConnection.getResponseCode();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+    }
 
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
