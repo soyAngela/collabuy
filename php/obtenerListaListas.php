@@ -21,5 +21,5 @@ $arrayresultados = array('id' => $fila[0], 'nombre' => $fila[1], 'clave' => $fil
 $res = json_encode($arrayresultados);
 echo $res;
 
-close();
+mysqli_close($con);
 ?>

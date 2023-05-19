@@ -50,6 +50,7 @@ public class ConexionPHP extends Worker {
 
             case "obtenerListaListas.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"));
+                break;
 
             default:
                 return Result.failure();

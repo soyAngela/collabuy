@@ -23,6 +23,7 @@ import com.example.collabuy.adaptadores.ListaListasOverview;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,38 +95,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         throw new RuntimeException(e);
                                     }
-                                    //Se recorren todos los elementos del array
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        //Cada elemento del array es una publicación que contará con 2 elementos
-                                        String[] listas = new String[2];
-                                        String idLista = null;
-                                        //Se guardan todos los elementos recogiendolos con sus respectivas claves
-                                        try {
-                                            idLista = jsonArray.getJSONObject(i).getString("id");
-                                        } catch (JSONException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                        listas[0] = idLista;
-                                        String nombre = null;
-                                        try {
-                                            nombre = jsonArray.getJSONObject(i).getString("nombre");
-                                        } catch (JSONException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                        listas[1] = nombre;
-                                        String clave = null;
-                                        try {
-                                            clave = jsonArray.getJSONObject(i).getString("clave");
-                                        } catch (JSONException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                        listas[2] = clave;
-                                        listaFinal.add(listas);
-                                    }
-                                    //Si hay al menos una publicación en el array se muestran
-                                    if (!listaFinal.isEmpty()){
-                                        mostrarListas(listaFinal);
-                                    }
+                                    mostrarListas(jsonArray);
                                 }
 
                             }else{
@@ -138,10 +108,10 @@ public class pantalla_bienvenida extends AppCompatActivity {
     }
 
 
-    private void mostrarListas(ArrayList<String[]> pListaFinal) {
+    private void mostrarListas(JSONArray pListaFinal) {
         //llamada a metodo que coloque nombre y clave en overview + asignar onclick con idLista
         ListView listaListas = findViewById(R.id.listaNombres);
-        ListaListasOverview adaptador = new ListaListasOverview(pListaFinal, getApplicationContext());
+        ListaListasOverview adaptador = new ListaListasOverview(pListaFinal, this);
         listaListas.setAdapter(adaptador);
 
     }
