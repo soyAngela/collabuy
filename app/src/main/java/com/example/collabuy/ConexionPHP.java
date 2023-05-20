@@ -41,10 +41,16 @@ public class ConexionPHP extends Worker {
         Log.d("collalogs", "url: "+url);
         switch(url){
             case "iniciosesion.php":
+                break;
 
             case "registro.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
                         .appendQueryParameter("contrasena", param.getString("contra"));
+                break;
+
+            case "comprobarLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("clave", param.getString("clave"));
                 break;
 
             case "obtenerListaProductos.php":
