@@ -48,11 +48,7 @@
 
         <activity
             android:name=".pantalla_bienvenida"
-            android:exported="true"/>
-
-        <activity
-            android:name=".NuevaLista"
-            android:exported="true"/>
+            android:exported="true"></activity>
 
         <activity
             android:name=".CreacionProducto"

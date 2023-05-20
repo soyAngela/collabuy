@@ -1,7 +1,6 @@
 package com.example.collabuy.adaptadores;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,42 +9,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.collabuy.ListActivity;
 import com.example.collabuy.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
 
-public class ListaListasOverview extends BaseAdapter{
+public class ListaListasOverview extends BaseAdapter implements View.OnClickListener{
 
     //  atributos
-    private JSONArray lista;
+    private ArrayList<String> lista;
     private Context c;
     private View.OnClickListener listener;
 
-    public ListaListasOverview(JSONArray listas, Context context){
+    public ListaListasOverview(ArrayList<String> listas, Context context){
         this.lista = listas;
         this.c = context;
     }
 
     @Override
+    public void onClick(View view) {
+        if (listener != null) {
+            listener.onClick(view);
+        }
+    }
+
+    @Override
     public int getCount() {
-        return this.lista.length();
+        return this.lista.size();
     }
 
     @Override
     public Object getItem(int i) {
-        try {
-            return this.lista.get(i);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        return this.lista.get(i);
     }
 
     @Override
@@ -55,7 +50,6 @@ public class ListaListasOverview extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        JSONObject elemento;
         ViewHolder holder;
 
         if (view == null){
@@ -71,28 +65,8 @@ public class ListaListasOverview extends BaseAdapter{
         else{
             holder = (ViewHolder) view.getTag();
         }
-        try {
-            elemento = (JSONObject) lista.get(i);
-            holder.tituloTextView.setText(elemento.getString("nombre"));
-            holder.codigoTextView.setText(elemento.getString("clave"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(c, ListActivity.class);
-                try {
-                    intent.putExtra("idLista", elemento.getString("id"));
-                    c.startActivity(intent);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
+        holder.tituloTextView.setText(this.lista.get(i));
+        //holder.codigoTextView.setText(Integer.toString(i));
         return view;
     }
 

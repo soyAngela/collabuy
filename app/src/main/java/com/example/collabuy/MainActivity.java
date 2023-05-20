@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, pantalla_bienvenida.class);
+                Intent intent = new Intent(MainActivity.this, InicioSesion.class);
                 startActivity(intent);
                 finish();
+                //Cambiar a página de Inicio de sesión
+                //Toast.makeText(MainActivity.this, "Se accede al inicio de sesión", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Registro.class);
                 startActivity(intent);
                 finish();
+                //Cambiar a página de registro
+                //Toast.makeText(MainActivity.this, "Se accede al registro de usuario", Toast.LENGTH_SHORT).show();
             }
         });
     }

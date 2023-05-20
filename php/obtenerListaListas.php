@@ -4,7 +4,7 @@ include 'conexion_collabuy.php';
 $parametro = $_POST["usuario"];
 
 # Ejecutar la sentencia SQL
-$resultado = mysqli_query($con, "SELECT * FROM Lista INNER JOIN Participacion ON Lista.id = Participacion.id_lista WHERE id_usuario = 'lucas'");
+$resultado = mysqli_query($con, "SELECT * FROM Lista INNER JOIN Participacion WHERE id_usuario = '$parametro'");
 
 # Comprobar si se ha ejecutado correctamente
 if (!$resultado) {
@@ -21,5 +21,5 @@ $arrayresultados = array('id' => $fila[0], 'nombre' => $fila[1], 'clave' => $fil
 $res = json_encode($arrayresultados);
 echo $res;
 
-mysqli_close($con);
+close();
 ?>
