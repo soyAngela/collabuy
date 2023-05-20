@@ -47,6 +47,14 @@ public class ConexionPHP extends Worker {
                         .appendQueryParameter("contrasena", param.getString("contra"));
                 break;
 
+            case "obtenerListaProductos.php":
+                builder.appendQueryParameter("lista", param.getString("lista"));
+                break;
+
+            case "obtenerListaListas.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"));
+                break;
+
             default:
                 return Result.failure();
         }

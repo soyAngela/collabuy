@@ -15,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (SessionManager.getInstance(this).getUsername()!=SessionManager.NO_SESSION)
+            startActivity(new Intent(this, pantalla_bienvenida.class));
+
     // Configurar xml dependiendo de la orientación
         if (getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
             setContentView(R.layout.activity_main_land);

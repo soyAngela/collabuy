@@ -2,6 +2,11 @@ package com.example.collabuy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -14,18 +19,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.collabuy.adaptadores.ProductListAdapter;
+
+import org.json.JSONArray;
+
+import java.util.Objects;
+
 public class ListActivity extends AppCompatActivity {
+
+    private String listId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        createList();
-        getSupportActionBar().setTitle("Lista de la compra");
+
+        Bundle extras = getIntent().getExtras();
+        listId = extras.getString("idLista");
+
+        waitForList();
+        getSupportActionBar().setTitle(extras.getString("nombreLista"));
     }
 
     @Override
@@ -38,7 +56,8 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.list_add:
-                Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, CreacionProducto.class);
+                startActivity(i);
                 break;
             case R.id.list_abandon:
                 Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
@@ -50,69 +69,47 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void createList(){
-        final Integer[] idList = {0,1,2,3,4,5,6,7,8,9};
-        final String[] nameList={"producto1","producto2","producto3","producto4","producto5","producto6","producto7","producto8","producto9","producto10"};
-        final Integer[] amountList={22,23,24,25,26,27,28,29,30,31};
-        final boolean[] boughtList={false,false,false,false,true,false,false,true,true,false};
-        ArrayAdapter productAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1,nameList){
+    private void createList(JSONArray list){
+        ListView productListView = findViewById(R.id.list_productList);
+
+        ListAdapter adapter = new ProductListAdapter(list, this);
+        productListView.setAdapter(adapter);
+    }
+
+    private void waitForList(){
+        Data data = new Data.Builder()
+                .putString("url", "obtenerListaProductos.php")
+                .putString("lista",listId)
+                .build();
+
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
                     @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        View panel;
+                    public void onChanged(WorkInfo workInfo) {
+                        if(workInfo != null && workInfo.getState().isFinished()){
+                            String result = workInfo.getOutputData().getString("resultado");
 
-                        //Both layouts have the very same elements and IDs
-                        if (boughtList[position])
-                            panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.bought_product_list_item,parent,false);
-                        else
-                            panel = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item,parent,false);
-
-                        TextView name = (TextView) panel.findViewById(R.id.list_productName);
-
-                        //Cross the product name out if bought
-                        if (boughtList[position])
-                            name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-                        TextView age = (TextView) panel.findViewById(R.id.list_productAmount);
-                        name.setText(nameList[position]);
-                        age.setText(amountList[position].toString());
-
-                        //When a product is clicked show its content in ProductActivity
-                        panel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent i = new Intent(ListActivity.this, ProductActivity.class);
-                                i.putExtra("id",idList[position]);
-                                ListActivity.this.startActivity(i);
+                            if(Objects.isNull(result)) {
+                                Log.d("productList", "Connection error, null result");
+                                deployEmptyList();
                             }
-                        });
 
-                        ImageButton buyButton = panel.findViewById(R.id.list_productBuy);
+                            JSONArray list = JsonBuilder.buildProductList(result);
 
-                        if (!boughtList[position]) {
-                            //Mark the product as bought when clicking on the shopping basket
-                            buyButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Log.d("ListRegistry", "Bought " + nameList[position] + " at list " + "Lista de la compra");
-                                    Toast.makeText(ListActivity.this, "Bought product " + idList[position], Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }else{
-                            //Cancel the purchase of the product when clicking on the cross
-                            buyButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Log.d("ListRegistry", "Cancelled " + nameList[position] + " at list " + "Lista de la compra");
-                                    Toast.makeText(ListActivity.this, "Cancelled product " + idList[position], Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            if (Objects.isNull(list)){
+                                Log.d("productList", "Wrong format, result non serializable");
+                                deployEmptyList();
+                            }
+
+                            createList(list);
                         }
-
-                        return panel;
                     }
-                };
-        ListView lalista = findViewById(R.id.list_productList);
-        lalista.setAdapter(productAdapter);
+                });
+        WorkManager.getInstance(this).enqueue(otwr);
+    }
+
+    private void deployEmptyList() {
+        Toast.makeText(this, "This list is empty, start filling it now!", Toast.LENGTH_SHORT).show();
     }
 }
