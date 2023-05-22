@@ -41,10 +41,23 @@ public class ConexionPHP extends Worker {
         Log.d("collalogs", "url: "+url);
         switch(url){
             case "iniciosesion.php":
+                break;
 
             case "registro.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
                         .appendQueryParameter("contrasena", param.getString("contra"));
+                break;
+
+            case "anadirLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
+                break;
+
+            case "creacionLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
                 break;
 
             case "obtenerListaProductos.php":
@@ -69,6 +82,11 @@ public class ConexionPHP extends Worker {
 
             case "obtenerListaListas.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"));
+                break;
+
+            case "abandonarLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("id", param.getString("id"));
                 break;
 
             default:
