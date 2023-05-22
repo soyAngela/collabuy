@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.example.collabuy.adaptadores.ProductListAdapter;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -69,14 +71,40 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void createList(JSONArray list){
+    private void createList(JSONArray list) {
+        JSONArray groupedList = group(list);
+
         ListView productListView = findViewById(R.id.list_productList);
 
-        ListAdapter adapter = new ProductListAdapter(list, this);
+        ListAdapter adapter = new ProductListAdapter(groupedList, this, listId);
         productListView.setAdapter(adapter);
     }
 
-    private void waitForList(){
+    private JSONArray group(JSONArray list) {
+        try {
+            JSONArray pending = new JSONArray();
+            JSONArray bought = new JSONArray();
+
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject element = (JSONObject) list.get(i);
+                if (element.getString("comprado").equals("0"))
+                    pending.put(element);
+                else
+                    bought.put(element);
+            }
+
+            for (int i = 0; i < bought.length(); i++) {
+                pending.put(bought.get(i));
+            }
+            return pending;
+
+        }catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void waitForList(){
         Data data = new Data.Builder()
                 .putString("url", "obtenerListaProductos.php")
                 .putString("lista",listId)
@@ -95,7 +123,7 @@ public class ListActivity extends AppCompatActivity {
                                 deployEmptyList();
                             }
 
-                            JSONArray list = JsonBuilder.buildProductList(result);
+                            JSONArray list = JsonBuilder.buildList(result);
 
                             if (Objects.isNull(list)){
                                 Log.d("productList", "Wrong format, result non serializable");
@@ -111,5 +139,10 @@ public class ListActivity extends AppCompatActivity {
 
     private void deployEmptyList() {
         Toast.makeText(this, "This list is empty, start filling it now!", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onResume(){
+        waitForList();
+        super.onResume();
     }
 }
