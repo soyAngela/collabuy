@@ -51,6 +51,22 @@ public class ConexionPHP extends Worker {
                 builder.appendQueryParameter("lista", param.getString("lista"));
                 break;
 
+            case "mostrarProducto.php":
+                builder.appendQueryParameter("id", param.getString("id"));
+                break;
+
+            case "ajustarCantidad.php":
+                builder.appendQueryParameter("productId", param.getString("productId"));
+                builder.appendQueryParameter("listId", param.getString("listId"));
+                builder.appendQueryParameter("cantidad", param.getString("cantidad"));
+                break;
+
+            case "marcarComprado.php":
+                builder.appendQueryParameter("productId", param.getString("productId"));
+                builder.appendQueryParameter("listId", param.getString("listId"));
+                builder.appendQueryParameter("comprado", param.getString("comprado"));
+                break;
+
             case "obtenerListaListas.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"));
                 break;

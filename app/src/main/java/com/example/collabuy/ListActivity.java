@@ -72,7 +72,7 @@ public class ListActivity extends AppCompatActivity {
     private void createList(JSONArray list){
         ListView productListView = findViewById(R.id.list_productList);
 
-        ListAdapter adapter = new ProductListAdapter(list, this);
+        ListAdapter adapter = new ProductListAdapter(list, this, listId);
         productListView.setAdapter(adapter);
     }
 
@@ -95,7 +95,7 @@ public class ListActivity extends AppCompatActivity {
                                 deployEmptyList();
                             }
 
-                            JSONArray list = JsonBuilder.buildProductList(result);
+                            JSONArray list = JsonBuilder.buildList(result);
 
                             if (Objects.isNull(list)){
                                 Log.d("productList", "Wrong format, result non serializable");
@@ -111,5 +111,10 @@ public class ListActivity extends AppCompatActivity {
 
     private void deployEmptyList() {
         Toast.makeText(this, "This list is empty, start filling it now!", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onResume(){
+        waitForList();
+        super.onResume();
     }
 }
