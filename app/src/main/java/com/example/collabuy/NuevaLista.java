@@ -42,7 +42,7 @@ public class NuevaLista extends AppCompatActivity {
                 public void onClick(View view) {
                     // AÑADIR LISTA A USUARIO
                         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-                        comprobarLista(user, nombreLista.getText().toString(), claveLista.getText().toString());
+                        comprobarLista("lucas", nombreLista.getText().toString(), claveLista.getText().toString());
                 }
             });
 
@@ -52,7 +52,7 @@ public class NuevaLista extends AppCompatActivity {
                 public void onClick(View view) {
                     // CREAR LISTA EN USUARIO
                     String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-                    crearNuevaLista(nombreLista.getText().toString(), claveLista.getText().toString(), user);
+                    crearNuevaLista(nombreLista.getText().toString(), claveLista.getText().toString(), "lucas");
                 }
             });
     }

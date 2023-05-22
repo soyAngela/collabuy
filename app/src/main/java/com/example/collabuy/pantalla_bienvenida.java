@@ -38,7 +38,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
 
     // obtener datos de BBDD y cargar en la lista
         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-        obtenerListaListas(user);
+        obtenerListaListas("lucas");
 
     // cuando se pulsa el botón de nueva lista
         botonNuevaLista.setOnClickListener(new View.OnClickListener() {

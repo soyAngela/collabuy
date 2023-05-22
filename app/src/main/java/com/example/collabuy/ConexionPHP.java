@@ -68,6 +68,11 @@ public class ConexionPHP extends Worker {
                 builder.appendQueryParameter("usuario", param.getString("usuario"));
                 break;
 
+            case "abandonarLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("id", param.getString("id"));
+                break;
+
             default:
                 return Result.failure();
         }

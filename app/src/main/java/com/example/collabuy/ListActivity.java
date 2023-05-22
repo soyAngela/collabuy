@@ -9,19 +9,12 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.collabuy.adaptadores.ProductListAdapter;
@@ -60,13 +53,48 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.list_abandon:
-                Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
+                String user = SessionManager.getInstance(getApplicationContext()).getUsername();
+                abandonList(this.listId, "lucas");
                 break;
             case R.id.list_settings:
                 Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void abandonList(String plistId, String pUser) {
+        Data data = new Data.Builder()
+                .putString("url", "abandonarLista.php")
+                .putString("usuario", pUser)
+                .putString("id", plistId)
+                .build();
+
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if(workInfo != null && workInfo.getState().isFinished()){
+                            String resultado = workInfo.getOutputData().getString("resultado");
+                            if(resultado != null && resultado.equals("lista eliminada")){
+                                // si existe la lista y está añadida
+                                Toast.makeText(ListActivity.this, "Se ha eliminado la lista", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ListActivity.this, pantalla_bienvenida.class);
+                                startActivity(intent);
+                                finish();
+                            }else if (resultado != null && resultado.equals("quedan participantes")){
+                                // si existe la lista y no está añadida
+                                Toast.makeText(ListActivity.this, "Ya no participas en la lista", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                // si no existe la lista
+                                Toast.makeText(ListActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(otwr);
     }
 
     private void createList(JSONArray list){
