@@ -72,14 +72,11 @@ public class ProductListAdapter extends BaseAdapter {
         JSONObject element;
         try {
             element = (JSONObject) list.get(i);
-            element.getString("comprado")
-            boolean bought = element.getString("comprado") == "1";
-
+            boolean bought = element.getString("comprado").equals("1");
             //Both layouts have the very same elements and IDs
-            if (bought) {
+            if (bought)
                 panel = LayoutInflater.from(c).inflate(R.layout.bought_product_list_item, viewGroup, false);
-                Log.d("collalogs", "Product " + element.getString("id") + " is bought");
-            }else
+            else
                 panel = LayoutInflater.from(c).inflate(R.layout.product_list_item,viewGroup,false);
 
             TextView name = (TextView) panel.findViewById(R.id.list_productName);
