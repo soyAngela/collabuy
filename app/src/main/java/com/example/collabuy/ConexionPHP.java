@@ -48,8 +48,15 @@ public class ConexionPHP extends Worker {
                         .appendQueryParameter("contrasena", param.getString("contra"));
                 break;
 
-            case "comprobarLista.php":
+            case "anadirLista.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
+                break;
+
+            case "creacionLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
                         .appendQueryParameter("clave", param.getString("clave"));
                 break;
 

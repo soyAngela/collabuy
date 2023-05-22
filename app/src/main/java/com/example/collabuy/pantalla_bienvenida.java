@@ -64,7 +64,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
         botonNuevaLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(pantalla_bienvenida.this, MainActivity.class);
+                Intent intent = new Intent(pantalla_bienvenida.this, NuevaLista.class);
                 startActivity(intent);
                 finish();
             }

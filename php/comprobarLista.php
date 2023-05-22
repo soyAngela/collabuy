@@ -1,22 +1,24 @@
 <?php
 include 'conexion_collabuy.php';
 
-$usuario = $_POST["usuario"]
-$clave = $_POST["clave"]
+$usuario = $_POST["usuario"];
+$nombreLista = $_POST["nombre"];
+$clave = $_POST["clave"];
 
-$resultado = mysqli_query($con, "SELECT * FROM Lista WHERE id = '$clave'");
-$resultado2 = mysqli_query($con, "SELECT * FROM Participacion WHERE id_lista = '$clave' AND id_usuario = '$usuario'");
+$resultado = mysqli_query($con, "SELECT * FROM Lista WHERE nombre = '$nombreLista' AND clave = '$clave'");
 
-if ($resultado == true) {
-    if ($resultado2 == true){
-        echo '1';
-    }
-    else{
-        echo '2';
-    }
-}
-else{
-        echo '3';
+if (!$resultado) {
+    echo 'No existe lista';
 }
 
+$arrayresultados = array();
+#Construir la lista elemento a elemento
+while ($fila = mysqli_fetch_assoc($resultado)) {
+    $arrayresultados = ['usuario' => $usuario, 'id' => $fila['id'], 'nombre' => $fila['nombre'], 'clave' => $fila['clave']];
+}
+
+#Devolver el resultado en formato JSON
+$res = json_encode($arrayresultados);
+
+echo $res
 ?>
