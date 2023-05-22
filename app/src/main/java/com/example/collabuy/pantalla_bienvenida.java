@@ -1,11 +1,8 @@
 package com.example.collabuy;
 
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,19 +15,12 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-
 import com.example.collabuy.adaptadores.ListaListasOverview;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class pantalla_bienvenida extends AppCompatActivity {
-    private ArrayList<String[]> listaFinal = new ArrayList<String[]>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,18 +37,8 @@ public class pantalla_bienvenida extends AppCompatActivity {
         Button botonNuevaLista = findViewById(R.id.botonNuevaLista);
 
     // obtener datos de BBDD y cargar en la lista
-
-        // De manera manual --> Funciona
-        /*ArrayList<String> datos = new ArrayList<String>();
-        datos.add("Cumple Lucas");
-        datos.add("Fiesta fin de curso");
-        datos.add("Compra del miércoles");*/
-        //ListaListasOverview adaptador = new ListaListasOverview(datos, getApplicationContext());
-        //listaListas.setAdapter(adaptador);
-
-        // De la bbdd remota falta obtener el usuario que ha iniciado sesion
         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-        obtenerListaListas("lucas");
+        obtenerListaListas(user);
 
     // cuando se pulsa el botón de nueva lista
         botonNuevaLista.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +46,6 @@ public class pantalla_bienvenida extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(pantalla_bienvenida.this, NuevaLista.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -106,7 +85,6 @@ public class pantalla_bienvenida extends AppCompatActivity {
                 });
         WorkManager.getInstance(this).enqueue(otwr);
     }
-
 
     private void mostrarListas(JSONArray pListaFinal) {
         //llamada a metodo que coloque nombre y clave en overview + asignar onclick con idLista

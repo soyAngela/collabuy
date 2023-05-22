@@ -15,8 +15,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 
 public class NuevaLista extends AppCompatActivity {
     @Override
@@ -31,7 +29,6 @@ public class NuevaLista extends AppCompatActivity {
         }
 
     // Declaración de objetos
-
         EditText nombreLista = findViewById(R.id.editText_nombre);
         EditText claveLista = findViewById(R.id.editText_clave);
 
@@ -39,7 +36,6 @@ public class NuevaLista extends AppCompatActivity {
         Button crearLista = findViewById(R.id.btn_crear_lista);
 
     // Funcionalidades de los botones
-
         // Añadir lista
             anadirLista.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -47,10 +43,6 @@ public class NuevaLista extends AppCompatActivity {
                     // AÑADIR LISTA A USUARIO
                         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
                         comprobarLista(user, nombreLista.getText().toString(), claveLista.getText().toString());
-                        // anadirLista(claveLista.getText(), usuario);
-                        //      --> como obtener usuario?
-                        //                      + accedemos a la lista después de añadirla?
-                        Intent intent = new Intent(NuevaLista.this, MainActivity.class);
                 }
             });
 
@@ -61,7 +53,6 @@ public class NuevaLista extends AppCompatActivity {
                     // CREAR LISTA EN USUARIO
                     String user = SessionManager.getInstance(getApplicationContext()).getUsername();
                     crearNuevaLista(nombreLista.getText().toString(), claveLista.getText().toString(), user);
-                    //          --> obtener usuario como parámetro?
                 }
             });
     }
