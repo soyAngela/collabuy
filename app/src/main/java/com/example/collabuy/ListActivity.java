@@ -104,7 +104,7 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
-    private void waitForList(){
+    public void waitForList(){
         Data data = new Data.Builder()
                 .putString("url", "obtenerListaProductos.php")
                 .putString("lista",listId)

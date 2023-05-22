@@ -144,10 +144,12 @@ public class ProductListAdapter extends BaseAdapter {
 
     private void buyProduct(int productId) {
         markBought(productId, 1);
+        ((ListActivity)c).waitForList();
     }
 
     private void cancelProduct(int productId) {
         markBought(productId, 0);
+        ((ListActivity)c).waitForList();
     }
 
     private void markBought(int productId, int state) {
