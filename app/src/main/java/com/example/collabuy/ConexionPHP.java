@@ -41,19 +41,17 @@ public class ConexionPHP extends Worker {
         Log.d("collalogs", "url: "+url);
         switch(url){
             case "iniciosesion.php":
-                break;
+
 
             case "registro.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
                         .appendQueryParameter("contrasena", param.getString("contra"))
                         .appendQueryParameter("token", param.getString("token"));
-                parametros = builder.build().getEncodedQuery();
                 break;
 
             case "token.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
                         .appendQueryParameter("token", param.getString("token"));
-                parametros = builder.build().getEncodedQuery();
                 break;
 
             case "anadirLista.php":
@@ -70,7 +68,6 @@ public class ConexionPHP extends Worker {
 
             case "obtenerListaProductos.php":
                 builder.appendQueryParameter("lista", param.getString("lista"));
-                parametros = builder.build().getEncodedQuery();
                 break;
 
             case "mostrarProducto.php":
@@ -91,22 +88,18 @@ public class ConexionPHP extends Worker {
 
             case "obtenerListaListas.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"));
-                parametros = builder.build().getEncodedQuery();
                 break;
 
             case "tokens_mensaje.php":
                 builder.appendQueryParameter("idLista", param.getString("idLista"));
-                parametros = builder.build().getEncodedQuery();
                 break;
             case "crear_grupo.php":
-                //builder.appendQueryParameter("tokens", param.getString("tokens"));
                 parametros = "tokens=" + param.getString("tokens");
                 break;
             case "mensaje.php":
                 builder.appendQueryParameter("nK", param.getString("nK"));
                 builder.appendQueryParameter("mensaje", param.getString("mensaje"));
                 builder.appendQueryParameter("idLista", param.getString("idLista"));
-                parametros = builder.build().getEncodedQuery();
                 break;
             case "borrar_grupo.php":
                 parametros = "tokens=" + param.getString("tokens") + "&nK=" + param.getString("nK");
@@ -137,6 +130,9 @@ public class ConexionPHP extends Worker {
                 return Result.failure();
         }
 
+        if (parametros.equals("")){
+            parametros = builder.build().getEncodedQuery();
+        }
 
         Log.d("collalogs", "parametros: "+parametros);
         try{

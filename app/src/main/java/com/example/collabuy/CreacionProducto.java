@@ -164,7 +164,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                 try  {
                     if (foto != null){
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        foto.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        foto.compress(Bitmap.CompressFormat.PNG, 60, stream);
                         byte[] fototransformada = stream.toByteArray();
                         fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
                     }else{
@@ -172,7 +172,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                         Bitmap originalBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 
                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); //Convertir de Bitmap a byte[]
-                        originalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                        originalBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream);
                         byte[] imagenRedimensionada = outputStream.toByteArray();
 
                         fotoen64 = Base64.encodeToString(imagenRedimensionada,Base64.DEFAULT);
@@ -354,7 +354,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
         super.onSaveInstanceState(savedInstanceState);
         if (foto != null){
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            foto.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            foto.compress(Bitmap.CompressFormat.PNG, 60, stream);
             byte[] fototransformada = stream.toByteArray();
             fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
         }

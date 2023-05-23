@@ -33,6 +33,7 @@ public class Sugerencias extends AppCompatActivity {
     ArrayList<String> lista = new ArrayList<>();
     SearchView searchView;
     ImageView botonAnadir;
+    String nombreLista;
 
     String listId;
     private ArrayList<String> idList = new ArrayList<>();
@@ -44,6 +45,7 @@ public class Sugerencias extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         listId = extras.getString("idLista");
+        nombreLista = extras.getString("nombreLista");
 
         listView = findViewById(R.id.listaSugerencias);
         searchView = findViewById(R.id.searchView);
@@ -151,6 +153,7 @@ public class Sugerencias extends AppCompatActivity {
     private void crearProducto() {
         Intent intent = new Intent(Sugerencias.this, CreacionProducto.class);
         intent.putExtra("lista", listId);
+        intent.putExtra("nombreLista", nombreLista);
         startActivity(intent);
         finish();
     }

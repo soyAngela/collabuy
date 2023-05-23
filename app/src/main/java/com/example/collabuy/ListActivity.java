@@ -1,5 +1,15 @@
 package com.example.collabuy;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,23 +18,6 @@ import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Paint;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.collabuy.adaptadores.ProductListAdapter;
 
@@ -104,7 +97,9 @@ public class ListActivity extends AppCompatActivity {
                             }else if (resultado != null && resultado.equals("quedan participantes")){
                                 // si existe la lista y no está añadida
                                 Toast.makeText(ListActivity.this, "Ya no participas en la lista", Toast.LENGTH_SHORT).show();
-
+                                Intent intent = new Intent(ListActivity.this, pantalla_bienvenida.class);
+                                startActivity(intent);
+                                finish();
                             }else{
                                 // si no existe la lista
                                 Toast.makeText(ListActivity.this, "error", Toast.LENGTH_SHORT).show();
