@@ -11,7 +11,7 @@ $cabecera= array(
 #El mensaje con sus respectivos datos y notificación
 $msg = array (
     'operation'=>"create",
-    'notification_key_name' =>"6",
+    'notification_key_name' =>"13",
     'registration_ids'=>json_decode($tokens) 
 );
 #Se devuelven los datos en formato json

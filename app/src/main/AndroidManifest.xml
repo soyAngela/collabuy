@@ -55,14 +55,7 @@
 
         <activity
             android:name=".pantalla_bienvenida"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="AVISO" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-
+            android:exported="true"/>
 
         <activity
             android:name=".NuevaLista"
@@ -73,6 +66,17 @@
             android:name=".CreacionProducto"
             android:exported="true"
             android:parentActivityName=".ListActivity">
+        </activity>
+        <activity
+            android:name=".ListPreferences"
+            android:exported="true"
+            android:parentActivityName=".ListActivity">
+        </activity>
+
+        <activity
+            android:name=".Sugerencias"
+            android:exported="true"
+            android:parentActivityName=".Sugerencias">
         </activity>
         <service
             android:name=".ServicioFirebase"
