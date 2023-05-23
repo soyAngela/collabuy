@@ -21,6 +21,11 @@ public class Registro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String token = "";
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            token = extras.getString("token");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
@@ -33,11 +38,13 @@ public class Registro extends AppCompatActivity {
 
         textYaInicia.setPaintFlags(textYaInicia.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
+        String finalToken = token;
         textYaInicia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: Intent a la actividad de Login
                 Intent intent = new Intent(Registro.this, InicioSesion.class);
+                intent.putExtra("token", finalToken);
                 Registro.this.startActivity(intent);
             }
         });
@@ -45,17 +52,18 @@ public class Registro extends AppCompatActivity {
         botonRegistrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registrarUsuario(editRegisUsuario.getText().toString(), String.valueOf(editRegisContra.getText().toString().hashCode()));
+                registrarUsuario(editRegisUsuario.getText().toString(), String.valueOf(editRegisContra.getText().toString().hashCode()), finalToken);
             }
         });
     }
 
-    public void registrarUsuario(String usuario, String contra){
+    public void registrarUsuario(String usuario, String contra, String token){
 
         Data data = new Data.Builder()
                 .putString("url", "registro.php")
                 .putString("usuario",usuario)
                 .putString("contra",contra)
+                .putString("token",token)
                 .build();
 
         OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();

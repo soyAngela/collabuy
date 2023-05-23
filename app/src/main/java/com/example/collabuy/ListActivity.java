@@ -33,6 +33,7 @@ import java.util.Objects;
 public class ListActivity extends AppCompatActivity {
 
     private String listId;
+    private String nombreLista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +42,10 @@ public class ListActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         listId = extras.getString("idLista");
+        nombreLista = extras.getString("nombreLista");
 
         waitForList();
-        getSupportActionBar().setTitle(extras.getString("nombreLista"));
+        getSupportActionBar().setTitle(nombreLista);
     }
 
     @Override
@@ -57,6 +59,8 @@ public class ListActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.list_add:
                 Intent i = new Intent(this, CreacionProducto.class);
+                i.putExtra("lista", listId);
+                i.putExtra("nombreLista", nombreLista);
                 startActivity(i);
                 break;
             case R.id.list_abandon:
