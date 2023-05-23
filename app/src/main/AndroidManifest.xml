@@ -63,6 +63,11 @@
             android:exported="true"
             android:parentActivityName=".ListActivity">
         </activity>
+        <activity
+            android:name=".ListPreferences"
+            android:exported="true"
+            android:parentActivityName=".ListActivity">
+        </activity>
 
         <activity
             android:name=".Sugerencias"

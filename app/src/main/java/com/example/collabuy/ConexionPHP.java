@@ -41,14 +41,43 @@ public class ConexionPHP extends Worker {
         Log.d("collalogs", "url: "+url);
         switch(url){
             case "iniciosesion.php":
+                break;
 
             case "registro.php":
                 builder.appendQueryParameter("usuario", param.getString("usuario"))
                         .appendQueryParameter("contrasena", param.getString("contra"));
                 break;
 
+            case "anadirLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
+                break;
+
+            case "creacionLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
+                break;
+
             case "obtenerListaProductos.php":
                 builder.appendQueryParameter("lista", param.getString("lista"));
+                break;
+
+            case "mostrarProducto.php":
+                builder.appendQueryParameter("id", param.getString("id"));
+                break;
+
+            case "ajustarCantidad.php":
+                builder.appendQueryParameter("productId", param.getString("productId"));
+                builder.appendQueryParameter("listId", param.getString("listId"));
+                builder.appendQueryParameter("cantidad", param.getString("cantidad"));
+                break;
+
+            case "marcarComprado.php":
+                builder.appendQueryParameter("productId", param.getString("productId"));
+                builder.appendQueryParameter("listId", param.getString("listId"));
+                builder.appendQueryParameter("comprado", param.getString("comprado"));
                 break;
 
             case "obtenerListaListas.php":
@@ -63,6 +92,17 @@ public class ConexionPHP extends Worker {
             case "anadir_sugerencia_lista.php":
                 builder.appendQueryParameter("idLista", param.getString("idLista"));
                 builder.appendQueryParameter("idProd", param.getString("idProd"));
+                break;
+                
+            case "abandonarLista.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"))
+                        .appendQueryParameter("id", param.getString("id"));
+                break;
+
+            case "editarLista.php":
+                builder.appendQueryParameter("id", param.getString("id"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
                 break;
 
             default:

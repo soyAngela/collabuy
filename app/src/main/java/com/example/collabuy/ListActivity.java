@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.example.collabuy.adaptadores.ProductListAdapter;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -64,23 +66,86 @@ public class ListActivity extends AppCompatActivity {
                 activityLista.startActivityForResult(i, 1);
                 break;
             case R.id.list_abandon:
-                Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
+                String user = SessionManager.getInstance(getApplicationContext()).getUsername();
+                abandonList(this.listId, user);
                 break;
             case R.id.list_settings:
-                Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ListPreferences.class);
+                intent.putExtra("listId", listId);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void createList(JSONArray list){
+    private void abandonList(String plistId, String pUser) {
+        Data data = new Data.Builder()
+                .putString("url", "abandonarLista.php")
+                .putString("usuario", pUser)
+                .putString("id", plistId)
+                .build();
+
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if(workInfo != null && workInfo.getState().isFinished()){
+                            String resultado = workInfo.getOutputData().getString("resultado");
+                            if(resultado != null && resultado.equals("lista eliminada")){
+                                // si existe la lista y está añadida
+                                Toast.makeText(ListActivity.this, "Se ha eliminado la lista", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ListActivity.this, pantalla_bienvenida.class);
+                                startActivity(intent);
+                                finish();
+                            }else if (resultado != null && resultado.equals("quedan participantes")){
+                                // si existe la lista y no está añadida
+                                Toast.makeText(ListActivity.this, "Ya no participas en la lista", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                // si no existe la lista
+                                Toast.makeText(ListActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(otwr);
+    }
+
+    private void createList(JSONArray list) {
+        JSONArray groupedList = group(list);
+
         ListView productListView = findViewById(R.id.list_productList);
 
-        ListAdapter adapter = new ProductListAdapter(list, this);
+        ListAdapter adapter = new ProductListAdapter(groupedList, this, listId);
         productListView.setAdapter(adapter);
     }
 
-    private void waitForList(){
+    private JSONArray group(JSONArray list) {
+        try {
+            JSONArray pending = new JSONArray();
+            JSONArray bought = new JSONArray();
+
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject element = (JSONObject) list.get(i);
+                if (element.getString("comprado").equals("0"))
+                    pending.put(element);
+                else
+                    bought.put(element);
+            }
+
+            for (int i = 0; i < bought.length(); i++) {
+                pending.put(bought.get(i));
+            }
+            return pending;
+
+        }catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void waitForList(){
         Data data = new Data.Builder()
                 .putString("url", "obtenerListaProductos.php")
                 .putString("lista",listId)
@@ -99,7 +164,7 @@ public class ListActivity extends AppCompatActivity {
                                 deployEmptyList();
                             }
 
-                            JSONArray list = JsonBuilder.buildProductList(result);
+                            JSONArray list = JsonBuilder.buildList(result);
 
                             if (Objects.isNull(list)){
                                 Log.d("productList", "Wrong format, result non serializable");
@@ -122,5 +187,10 @@ public class ListActivity extends AppCompatActivity {
         if(requestCode==1){
             waitForList();
         }
+    }
+       
+    protected void onResume(){
+        waitForList();
+        super.onResume();
     }
 }
