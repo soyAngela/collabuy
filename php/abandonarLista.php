@@ -22,4 +22,5 @@ if ($resultado == true){
     }
 }
 
+mysqli_close($con);
 ?>

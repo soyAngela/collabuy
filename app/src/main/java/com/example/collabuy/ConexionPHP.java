@@ -73,6 +73,12 @@ public class ConexionPHP extends Worker {
                         .appendQueryParameter("id", param.getString("id"));
                 break;
 
+            case "editarLista.php":
+                builder.appendQueryParameter("id", param.getString("id"))
+                        .appendQueryParameter("nombre", param.getString("nombre"))
+                        .appendQueryParameter("clave", param.getString("clave"));
+                break;
+
             default:
                 return Result.failure();
         }

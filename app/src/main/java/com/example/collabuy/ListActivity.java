@@ -57,7 +57,9 @@ public class ListActivity extends AppCompatActivity {
                 abandonList(this.listId, "lucas");
                 break;
             case R.id.list_settings:
-                Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ListPreferences.class);
+                intent.putExtra("listId", listId);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

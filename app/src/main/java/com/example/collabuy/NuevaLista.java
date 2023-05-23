@@ -42,7 +42,13 @@ public class NuevaLista extends AppCompatActivity {
                 public void onClick(View view) {
                     // AÑADIR LISTA A USUARIO
                         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-                        comprobarLista("lucas", nombreLista.getText().toString(), claveLista.getText().toString());
+                        String nomLista = nombreLista.getText().toString();
+                        String clLista = claveLista.getText().toString();
+                        if (!nomLista.isEmpty() && !clLista.isEmpty()){
+                            comprobarLista("lucas", nombreLista.getText().toString(), claveLista.getText().toString());
+                        }else{
+                            Toast.makeText(NuevaLista.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+                        }
                 }
             });
 
@@ -52,7 +58,14 @@ public class NuevaLista extends AppCompatActivity {
                 public void onClick(View view) {
                     // CREAR LISTA EN USUARIO
                     String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-                    crearNuevaLista(nombreLista.getText().toString(), claveLista.getText().toString(), "lucas");
+                    String nomLista = nombreLista.getText().toString();
+                    String clLista = claveLista.getText().toString();
+                    if (!nomLista.isEmpty() && !clLista.isEmpty()){
+                        crearNuevaLista(nomLista, clLista, "lucas");
+                    }else{
+                        Toast.makeText(NuevaLista.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             });
     }

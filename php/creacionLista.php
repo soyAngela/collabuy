@@ -30,3 +30,6 @@ if($fila[0] == 0){
     echo "lista existente";
 }
 
+mysqli_close($con);
+
+?>

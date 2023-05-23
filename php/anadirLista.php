@@ -22,4 +22,6 @@ if($fila[0] == 0){
 else{
     echo "ya participaba";
 }
+
+mysqli_close($con);
 ?>
