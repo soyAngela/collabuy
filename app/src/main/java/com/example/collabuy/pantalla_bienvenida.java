@@ -93,7 +93,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
                                         //Se transforma a un jsonArray el String con el resultado
                                         jsonArray = new JSONArray(resultado);
                                     } catch (JSONException e) {
-                                        throw new RuntimeException(e);
+                                        e.printStackTrace();
                                     }
                                     mostrarListas(jsonArray);
                                 }

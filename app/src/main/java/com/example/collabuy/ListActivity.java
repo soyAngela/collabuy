@@ -1,6 +1,7 @@
 package com.example.collabuy;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
@@ -8,6 +9,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import java.util.Objects;
 public class ListActivity extends AppCompatActivity {
 
     private String listId;
+    private Activity activityLista = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +59,9 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.list_add:
-                Intent i = new Intent(this, CreacionProducto.class);
-                startActivity(i);
+                Intent i = new Intent(this, Sugerencias.class);
+                i.putExtra("idLista", listId);
+                activityLista.startActivityForResult(i, 1);
                 break;
             case R.id.list_abandon:
                 Toast.makeText(this, "Currently unimplemented feature", Toast.LENGTH_SHORT).show();
@@ -111,5 +115,12 @@ public class ListActivity extends AppCompatActivity {
 
     private void deployEmptyList() {
         Toast.makeText(this, "This list is empty, start filling it now!", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==1){
+            waitForList();
+        }
     }
 }

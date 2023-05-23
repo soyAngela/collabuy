@@ -55,6 +55,16 @@ public class ConexionPHP extends Worker {
                 builder.appendQueryParameter("usuario", param.getString("usuario"));
                 break;
 
+            case "obtenerListaSugerencias.php":
+                builder.appendQueryParameter("usuario", param.getString("usuario"));
+                builder.appendQueryParameter("listId", param.getString("listId"));
+                break;
+
+            case "anadir_sugerencia_lista.php":
+                builder.appendQueryParameter("idLista", param.getString("idLista"));
+                builder.appendQueryParameter("idProd", param.getString("idProd"));
+                break;
+
             default:
                 return Result.failure();
         }

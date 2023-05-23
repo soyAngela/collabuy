@@ -64,6 +64,12 @@
             android:parentActivityName=".ListActivity">
         </activity>
 
+        <activity
+            android:name=".Sugerencias"
+            android:exported="true"
+            android:parentActivityName=".Sugerencias">
+        </activity>
+
 
     </application>
 
