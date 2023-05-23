@@ -20,5 +20,5 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 #Devolver el resultado en formato JSON
 $res = json_encode($arrayresultados);
 
-echo $res
+
 ?>

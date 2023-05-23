@@ -63,7 +63,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
                     @Override
                     public void onChanged(WorkInfo workInfo) {
                         if(workInfo != null && workInfo.getState().isFinished()){
-                            if(workInfo.getOutputData().getString("resultado") != null){
+                            if(workInfo.getOutputData().getString("resultado") != null && !workInfo.getOutputData().getString("resultado").equals("null")){
                                 // cargar los datos obtenidos en la lista
                                 String resultado = workInfo.getOutputData().getString("resultado");
                                 if(resultado!=null) {

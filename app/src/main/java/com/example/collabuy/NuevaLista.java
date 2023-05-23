@@ -45,7 +45,7 @@ public class NuevaLista extends AppCompatActivity {
                         String nomLista = nombreLista.getText().toString();
                         String clLista = claveLista.getText().toString();
                         if (!nomLista.isEmpty() && !clLista.isEmpty()){
-                            comprobarLista("lucas", nombreLista.getText().toString(), claveLista.getText().toString());
+                            comprobarLista(user, nombreLista.getText().toString(), claveLista.getText().toString());
                         }else{
                             Toast.makeText(NuevaLista.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
                         }
@@ -61,7 +61,7 @@ public class NuevaLista extends AppCompatActivity {
                     String nomLista = nombreLista.getText().toString();
                     String clLista = claveLista.getText().toString();
                     if (!nomLista.isEmpty() && !clLista.isEmpty()){
-                        crearNuevaLista(nomLista, clLista, "lucas");
+                        crearNuevaLista(nomLista, clLista, user);
                     }else{
                         Toast.makeText(NuevaLista.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
 

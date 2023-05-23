@@ -63,7 +63,7 @@ public class ListActivity extends AppCompatActivity {
                 break;
             case R.id.list_abandon:
                 String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-                abandonList(this.listId, "lucas");
+                abandonList(this.listId, user);
                 break;
             case R.id.list_settings:
                 Intent intent = new Intent(this, ListPreferences.class);
