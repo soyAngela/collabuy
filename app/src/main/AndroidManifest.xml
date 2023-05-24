@@ -20,8 +20,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ProductActivity"
-            android:exported="false"
-            android:parentActivityName=".ListActivity"/>
+            android:exported="false"/>
 
         <activity
             android:name=".ListActivity"
@@ -64,8 +63,7 @@
 
         <activity
             android:name=".CreacionProducto"
-            android:exported="true"
-            android:parentActivityName=".ListActivity">
+            android:exported="true">
         </activity>
         <activity
             android:name=".ListPreferences"
