@@ -1,7 +1,6 @@
 package com.example.collabuy;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonBuilder {

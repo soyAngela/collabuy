@@ -15,9 +15,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 public class ListPreferences extends AppCompatActivity{
     private String listId;
     private String listName;
