@@ -36,4 +36,5 @@
     <string name="signUp_signUp">Registrarse</string>
     <string name="signUp_signIn">Inicia Sesión</string>
     <string name="signUp_accountAlready">¿Ya tienes una cuenta?</string>
+    <string name="welcome_backMessage">Pulsa dos veces para salir</string>
 </resources>

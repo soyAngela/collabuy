@@ -36,4 +36,5 @@
     <string name="signUp_signUp">Sign Up</string>
     <string name="signUp_signIn">Sign In</string>
     <string name="signUp_accountAlready">Have an account already?</string>
+    <string name="welcome_backMessage">Press twice to exit</string>
 </resources>
