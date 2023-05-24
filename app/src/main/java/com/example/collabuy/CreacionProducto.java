@@ -67,6 +67,8 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     private Activity actividadPerfil = this;
     private String photoPath;
 
+    private Uri contentUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
@@ -135,6 +137,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     }
 
     private Bitmap redimensionarImagen(Bitmap foto){
+        //Redimensionar la imagen al tamaño del imageView
         int anchoDestino = imagen.getWidth();
         int altoDestino = imagen.getHeight();
         int anchoImagen = foto.getWidth();
@@ -153,6 +156,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     }
 
     private void crearProducto() throws JSONException, IOException {
+        //Dialogo para elegir entre la cámara y la galeria
         DialogFragment dialogoalerta= new CamaraGaleriaDialog();
         dialogoalerta.show(getSupportFragmentManager(), "1");
         thread = new Thread(new Runnable() {
@@ -165,15 +169,6 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                         foto.compress(Bitmap.CompressFormat.PNG, 60, stream);
                         byte[] fototransformada = stream.toByteArray();
                         fotoen64 = Base64.encodeToString(fototransformada,Base64.DEFAULT);
-                    }else{
-                        File file = new File(photoPath); //Cambiar el tamaÃ±ao del bitmap
-                        Bitmap originalBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-
-                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); //Convertir de Bitmap a byte[]
-                        originalBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream);
-                        byte[] imagenRedimensionada = outputStream.toByteArray();
-
-                        fotoen64 = Base64.encodeToString(imagenRedimensionada,Base64.DEFAULT);
                     }
                     String parametros = "nombre=" + nombreProducto + "&descripcion=" + descripcion + "&imagen=" + fotoen64 + "&usuario=" + usuario + "&idLista=" + idLista;
                     String direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/add_producto_lista.php";
@@ -201,11 +196,8 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                 }
             }
         });
-
         thread.start();
-        while(thread.isAlive()){
-
-        }
+        while(thread.isAlive()){}
     }
 
     @Override
@@ -216,29 +208,37 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     }
     @Override
     public void galeria() {
+        //Acceder a la galería para poder elegir una foto
         Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         actividadPerfil.startActivityForResult(galeria, 2);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        //Metodo que recoge la foto una vez se ha tomado con la camara o elegido de la galeria
+        //Metodo que recoge la foto una vez se ha  elegido de la galeria
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == 2){ //Si se ha elegido la foto de la galeria
+        if(requestCode == 2){
             if(resultCode == Activity.RESULT_OK){
-                Uri contentUri = data.getData();
+                contentUri = data.getData();
                 String[] projection = {MediaStore.Images.Media.DATA};
                 Cursor cursor = getContentResolver().query(contentUri, projection, null, null, null);
                 int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
                 photoPath = cursor.getString(columnIndex);
-                imagen.setImageBitmap(null);
+                File file = new File(photoPath); //Cambiar el tamaÃ±ao del bitmap
+                Bitmap originalBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); //Convertir de Bitmap a byte[]
+                originalBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream);
+                byte[] imagenRedimensionada = outputStream.toByteArray();
+
+                fotoen64 = Base64.encodeToString(imagenRedimensionada,Base64.DEFAULT);
                 imagen.setImageURI(contentUri); //Se muestra en la pantalla
             }
         }
     }
 
     private void getTokenParticipantes(String idLista){
+        //Recuperar el token de todos los usuarios pertenecientes a la lista a la que se añade el producto
         Data data = new Data.Builder()
                 .putString("url", "tokens_mensaje.php")
                 .putString("idLista", idLista)
@@ -271,6 +271,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     }
 
     private void crearGrupo(JSONArray tokens){
+        //Se crea el grupo con todos los participantes
         Data data = new Data.Builder()
                 .putString("url", "crear_grupo.php")
                 .putString("tokens", String.valueOf(tokens))
@@ -297,6 +298,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     }
 
     private void enviarMensaje(String nK, JSONArray tokens) throws JSONException {
+        //Envio de mensaje con el aviso de nuevo producto
         JSONObject n = new JSONObject(nK);
         String k = n.getString("notification_key");
         String mensaje = usuario + " ha añadido " + nombreProducto + " a la lista " + nombreLista;
@@ -305,6 +307,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                 .putString("mensaje", mensaje)
                 .putString("idLista", idLista)
                 .putString("nK", k)
+                .putString("nombreLista", nombreLista)
                 .build();
 
         OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
@@ -338,7 +341,6 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                     public void onChanged(WorkInfo workInfo) {
                         if(workInfo != null && workInfo.getState().isFinished()){
                             if(workInfo.getOutputData().getString("resultado") != null){
-                                String resultado = workInfo.getOutputData().getString("resultado");
                                 volverLista();
                             }else{
                             }
@@ -358,9 +360,11 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
         }
         savedInstanceState.putString("foto",fotoen64);
         EditText nProducto = (EditText) findViewById(R.id.nuevoProductoNombre);
-        savedInstanceState.putString("nombreProducto", nProducto.getText().toString());
+        nombreProducto = nProducto.getText().toString();
+        savedInstanceState.putString("nombreProducto", nombreProducto);
         EditText desc = (EditText) findViewById(R.id.nuevosProductoDesc);
-        savedInstanceState.putString("descripcion", desc.getText().toString());
+        descripcion = desc.getText().toString();
+        savedInstanceState.putString("descripcion", descripcion);
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -379,7 +383,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
         if(fotoen64 != null){
             byte[] decodedString = Base64.decode(fotoen64, Base64.DEFAULT);
             foto = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            //imagen.setImageBitmap(foto);
+            imagen.setImageBitmap(foto);
         }
     }
 }

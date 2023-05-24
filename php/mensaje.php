@@ -3,6 +3,7 @@
 $mensaje = $_POST["mensaje"];
 $nK = $_POST["nK"];
 $idLista = $_POST["idLista"];
+$nombreLista = $_POST["nombreLista"];
 
 #Se define la cabecera la clave del servicio firebase
 $cabecera= array(
@@ -13,7 +14,8 @@ $cabecera= array(
 $msg = array (
     'to' => "$nK",
     'data' => array (
-    "idPubli" => "$idLista",
+    "idLista" => "$idLista",
+    "nombreLista" => "$nombreLista",
     "notificacion" => "1"),
     'notification' => array (
     "body" => "$mensaje",

@@ -100,6 +100,7 @@ public class ConexionPHP extends Worker {
                 builder.appendQueryParameter("nK", param.getString("nK"));
                 builder.appendQueryParameter("mensaje", param.getString("mensaje"));
                 builder.appendQueryParameter("idLista", param.getString("idLista"));
+                builder.appendQueryParameter("nombreLista", param.getString("nombreLista"));
                 break;
             case "borrar_grupo.php":
                 parametros = "tokens=" + param.getString("tokens") + "&nK=" + param.getString("nK");
