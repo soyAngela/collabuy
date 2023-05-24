@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,13 +32,16 @@ public class pantalla_bienvenida extends AppCompatActivity {
         }else{
             setContentView(R.layout.usuario_bienvenida);
         }
+        getSupportActionBar().hide();
 
     // declaración de objetos
-
         Button botonNuevaLista = findViewById(R.id.botonNuevaLista);
+        TextView nomUsuario = findViewById(R.id.text_nomUsu);
+        Button botonCerrarSesion = findViewById(R.id.btn_logout);
 
-    // obtener datos de BBDD y cargar en la lista
+    // obtener datos de BBDD y cargar en la lista y usuario en textView
         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
+        nomUsuario.setText(user);
         obtenerListaListas(user);
 
     // cuando se pulsa el botón de nueva lista
@@ -48,6 +52,18 @@ public class pantalla_bienvenida extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    // pulsar el botón de Logout o "X"
+    botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(pantalla_bienvenida.this, "Se ha cerrado la sesión", Toast.LENGTH_SHORT).show();
+            SessionManager.getInstance(getApplicationContext()).clearSession();
+            Intent intent = new Intent(pantalla_bienvenida.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    });
     }
 
     public void obtenerListaListas(String pUsuario){

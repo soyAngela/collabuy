@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/green_tertiary"
     tools:context=".MainActivity"
     tools:ignore="MissingDefaultResource">
 
@@ -12,20 +12,21 @@
         android:id="@+id/texto_bienvenido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/montserratregular"
         android:gravity="center_horizontal"
         android:text="Bienvenido a"
         android:textSize="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="389dp"
-        android:layout_height="127dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="359dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_inicio_sesion"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +40,9 @@
         android:layout_width="232dp"
         android:layout_height="85dp"
         android:layout_marginStart="89dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="90dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/green_gray"
         android:fontFamily="@font/montserratbold"
         android:text="Inicia sesión"
@@ -48,7 +50,8 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/texto_o"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <TextView
         android:id="@+id/texto_o"
@@ -56,13 +59,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="197dp"
         android:layout_marginEnd="198dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="5dp"
         android:fontFamily="@font/montserratbold"
         android:text="o"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_registro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_inicio_sesion" />
 
     <Button
         android:id="@+id/btn_registro"
@@ -70,7 +74,7 @@
         android:layout_height="85dp"
         android:layout_marginStart="89dp"
         android:layout_marginEnd="90dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@color/green_gray"
         android:fontFamily="@font/montserratregular"
         android:text="Regístrate"
@@ -79,6 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texto_o" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

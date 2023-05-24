@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/green_tertiary"
     tools:ignore="MissingDefaultResource">
 
     <TextView
         android:id="@+id/textoBienvenido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Bienvenido"
-        android:textSize="40dp"
+        android:layout_width="331dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/montserratregular"
-        android:gravity="center_horizontal"
+        android:text="     Bienvenid@ :"
+        android:textSize="40dp"
+
         app:layout_constraintBottom_toTopOf="@+id/listaNombres"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,5 +56,34 @@
         app:layout_constraintTop_toBottomOf="@+id/listaNombres"
         app:layout_constraintVertical_bias="1.0"
         />
+
+    <TextView
+        android:id="@+id/text_nomUsu"
+        android:layout_width="144dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/montserratbold"
+        android:text="nomUsuario"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/listaNombres"
+        app:layout_constraintEnd_toStartOf="@+id/btn_logout"
+        app:layout_constraintStart_toEndOf="@+id/textoBienvenido"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="20dp"
+        android:text="LogOut"
+        app:layout_constraintBottom_toTopOf="@+id/listaNombres"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_nomUsu"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

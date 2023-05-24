@@ -13,8 +13,8 @@
         android:id="@+id/texto_nueva_lista"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/montserratregular"
         android:gravity="center_horizontal"
         android:text="Acceder a lista"
@@ -26,8 +26,8 @@
 
     <EditText
         android:id="@+id/editText_nombre"
-        android:layout_width="241dp"
-        android:layout_height="66dp"
+        android:layout_width="242dp"
+        android:layout_height="48dp"
         android:layout_marginStart="85dp"
         android:layout_marginEnd="85dp"
         android:layout_marginBottom="10dp"
@@ -42,11 +42,11 @@
 
     <EditText
         android:id="@+id/editText_clave"
-        android:layout_width="241dp"
-        android:layout_height="66dp"
+        android:layout_width="242dp"
+        android:layout_height="52dp"
         android:layout_marginStart="85dp"
         android:layout_marginEnd="85dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="15dp"
         android:background="@color/green_secondary"
         android:ems="10"
         android:hint="Clave"

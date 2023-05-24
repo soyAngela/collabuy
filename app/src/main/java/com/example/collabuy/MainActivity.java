@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             setContentView(R.layout.activity_main);
         }
+        getSupportActionBar().hide();
 
     // Declaración de objetos
         Button login = findViewById(R.id.btn_inicio_sesion);

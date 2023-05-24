@@ -99,6 +99,8 @@ public class NuevaLista extends AppCompatActivity {
                                 // si no existe la lista
                                 Toast.makeText(NuevaLista.this, "Ya participa en la lista", Toast.LENGTH_SHORT).show();
                             }
+                        }else{
+                            Toast.makeText(NuevaLista.this, "No existe la lista", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
