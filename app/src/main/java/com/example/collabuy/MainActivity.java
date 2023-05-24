@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, InicioSesion.class);
                 intent.putExtra("token", token[0]);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Registro.class);
                 intent.putExtra("token", token[0]);
                 startActivity(intent);
-                finish();
             }
         });
 

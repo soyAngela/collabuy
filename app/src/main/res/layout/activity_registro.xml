@@ -74,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="141dp"
         android:text="@string/signUp_title"
+        android:fontFamily="@font/montserratregular"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

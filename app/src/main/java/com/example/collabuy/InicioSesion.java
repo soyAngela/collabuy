@@ -52,7 +52,12 @@ public class InicioSesion extends AppCompatActivity {
         botonIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verificarUsuario(editUsuario.getText().toString(), String.valueOf(editContrasena.getText().toString().hashCode()), finalToken);
+                if (!editUsuario.getText().toString().isEmpty() && !editContrasena.getText().toString().isEmpty()){
+                    verificarUsuario(editUsuario.getText().toString(), String.valueOf(editContrasena.getText().toString().hashCode()), finalToken);
+                }
+                else{
+                    Toast.makeText(InicioSesion.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -15,7 +15,7 @@
         android:fontFamily="@font/montserratregular"
         android:text="@string/welcome_title"
         android:textSize="40dp"
-
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/listaNombres"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
@@ -58,19 +58,20 @@
 
     <TextView
         android:id="@+id/text_nomUsu"
-        android:layout_width="144dp"
-        android:layout_height="51dp"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/montserratbold"
         android:text="nomUsuario"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/listaNombres"
         app:layout_constraintEnd_toStartOf="@+id/btn_logout"
         app:layout_constraintStart_toEndOf="@+id/textoBienvenido"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722" />
 
     <Button
         android:id="@+id/btn_logout"
@@ -80,6 +81,8 @@
         android:layout_marginEnd="63dp"
         android:layout_marginBottom="20dp"
         android:text="LogOut"
+        android:backgroundTint="@color/green_secondary"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/listaNombres"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_nomUsu"

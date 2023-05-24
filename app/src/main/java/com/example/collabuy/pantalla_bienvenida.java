@@ -39,26 +39,20 @@ public class pantalla_bienvenida extends AppCompatActivity {
         getSupportActionBar().hide();
 
     // declaración de objetos
-        Button botonNuevaLista = findViewById(R.id.botonNuevaLista);
-        TextView nomUsuario = findViewById(R.id.text_nomUsu);
-        Button botonCerrarSesion = findViewById(R.id.btn_logout);
 
-    // obtener datos de BBDD y cargar en la lista y usuario en textView
+        Button botonNuevaLista = findViewById(R.id.botonNuevaLista);
+        Button botonLogout = findViewById(R.id.btn_logout);
+
+        TextView nomUsu = findViewById(R.id.text_nomUsu);
+
+    // obtener datos de BBDD y cargar en la lista y el nombre usuario en textView
         String user = SessionManager.getInstance(getApplicationContext()).getUsername();
-        nomUsuario.setText(user);
+        nomUsu.setText(user);
         obtenerListaListas(user);
 
-    // cuando se pulsa el botón de nueva lista
-        botonNuevaLista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(pantalla_bienvenida.this, NuevaLista.class);
-                startActivity(intent);
-            }
-        });
 
-    // pulsar el botón de Logout o "X"
-    botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
+    // cuando se pulsa el botón de logout o la "X"
+    botonLogout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Toast.makeText(pantalla_bienvenida.this, "Se ha cerrado la sesión", Toast.LENGTH_SHORT).show();
@@ -68,6 +62,14 @@ public class pantalla_bienvenida extends AppCompatActivity {
             finish();
         }
     });
+    // cuando se pulsa el botón de nueva lista
+        botonNuevaLista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(pantalla_bienvenida.this, NuevaLista.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void obtenerListaListas(String pUsuario){

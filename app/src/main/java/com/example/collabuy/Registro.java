@@ -52,7 +52,11 @@ public class Registro extends AppCompatActivity {
         botonRegistrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registrarUsuario(editRegisUsuario.getText().toString(), String.valueOf(editRegisContra.getText().toString().hashCode()), finalToken);
+                if (!editRegisUsuario.getText().toString().isEmpty() && !editRegisContra.getText().toString().isEmpty()){
+                    registrarUsuario(editRegisUsuario.getText().toString(), String.valueOf(editRegisContra.getText().toString().hashCode()), finalToken);
+                }else{
+                    Toast.makeText(Registro.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

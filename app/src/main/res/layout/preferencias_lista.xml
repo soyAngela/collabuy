@@ -50,7 +50,6 @@
         android:ems="10"
         android:hint="@string/preferences_key"
         android:inputType="textPersonName"
-        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_editar_lista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

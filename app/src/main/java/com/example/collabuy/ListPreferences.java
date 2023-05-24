@@ -31,6 +31,7 @@ public class ListPreferences extends AppCompatActivity{
         }else{
             setContentView(R.layout.preferencias_lista);
         }
+        getSupportActionBar().hide();
 
         //Declaracion de objetos
         EditText nombreLista = findViewById(R.id.editText_nombre);
