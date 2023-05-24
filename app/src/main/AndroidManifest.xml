@@ -24,7 +24,8 @@
 
         <activity
             android:name=".ListActivity"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".pantalla_bienvenida">
             <intent-filter>
                 <action android:name="AVISO" />
                 <category android:name="android.intent.category.DEFAULT" />
