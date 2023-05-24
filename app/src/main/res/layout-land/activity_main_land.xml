@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/green_main"
     tools:context=".MainActivity"
     tools:ignore="MissingDefaultResource">
 
@@ -15,7 +15,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/montserratregular"
         android:gravity="center_horizontal"
-        android:text="Bienvenido a"
+        android:text="@string/main_welcome"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/texto_bienvenido"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/collabuylogo" />
+        app:srcCompat="@drawable/logo_white" />
 
     <Button
         android:id="@+id/btn_inicio_sesion"
@@ -41,9 +41,9 @@
         android:layout_marginStart="89dp"
         android:layout_marginEnd="90dp"
         android:layout_marginBottom="1dp"
-        android:backgroundTint="@color/green_gray"
+        android:backgroundTint="@color/green_secondary"
         android:fontFamily="@font/montserratbold"
-        android:text="Inicia sesión"
+        android:text="@string/main_signIn"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/texto_o"
@@ -58,7 +58,7 @@
         android:layout_marginEnd="198dp"
         android:layout_marginBottom="2dp"
         android:fontFamily="@font/montserratbold"
-        android:text="o"
+        android:text="@string/main_or"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_registro"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,9 +71,9 @@
         android:layout_marginStart="89dp"
         android:layout_marginEnd="90dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/green_gray"
+        android:backgroundTint="@color/green_secondary"
         android:fontFamily="@font/montserratregular"
-        android:text="Regístrate"
+        android:text="@string/main_signUp"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
