@@ -130,6 +130,7 @@ public class ProductActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         amount = savedInstanceState.getInt("amount");
+        amountView = findViewById(R.id.product_amount);
         amountView.setText(amount + "");
     }
 
