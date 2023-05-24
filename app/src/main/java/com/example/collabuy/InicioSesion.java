@@ -19,26 +19,31 @@ import android.widget.Toast;
 
 public class InicioSesion extends AppCompatActivity {
 
+    Activity actividadLogin = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_inicio_sesion);
+
+        // Recuperar el token de Firebase
         String token = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             token = extras.getString("token");
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio_sesion);
+        String finalToken = token;
 
-        Activity actividadLogin = this;
-
+        // Declarar los objectos
         TextView textRegistrate = findViewById(R.id.textRegistrate);
         EditText editUsuario = findViewById(R.id.editUsuario);
         EditText editContrasena = findViewById(R.id.editContrasena);
         Button botonIniciar = findViewById(R.id.botonIniciar);
 
+        // Texto subrayado
         textRegistrate.setPaintFlags(textRegistrate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        String finalToken = token;
+        // Boton que lleva a la actividad de registro
         textRegistrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +53,7 @@ public class InicioSesion extends AppCompatActivity {
             }
         });
 
-
+        // Boton para iniciar sesion
         botonIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +67,7 @@ public class InicioSesion extends AppCompatActivity {
         });
     }
 
+    // Metodo que lanza la peticion para el inicio de sesion
     private void verificarUsuario(String usuario, String contra, String token) {
 
         Data data = new Data.Builder()
@@ -88,6 +94,7 @@ public class InicioSesion extends AppCompatActivity {
         WorkManager.getInstance(this).enqueue(otwr);
     }
 
+    // Metodo que actualiza el token cuando el usuario inicia sesion
     private void actualizarToken(String usuario, String contra, String token){
         Data data = new Data.Builder()
                 .putString("url", "token.php")

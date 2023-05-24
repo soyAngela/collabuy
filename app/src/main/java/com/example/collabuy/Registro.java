@@ -19,26 +19,31 @@ import android.widget.Toast;
 
 public class Registro extends AppCompatActivity {
 
+    Activity actividadLogin = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registro);
+
+        // Recuperar el token de Firebase
         String token = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             token = extras.getString("token");
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
+        String finalToken = token;
 
-        Activity actividadLogin = this;
-
+        // Declarar los objectos
         EditText editRegisUsuario = findViewById(R.id.editRegisUsuario);
         EditText editRegisContra = findViewById(R.id.editRegisContrasena);
         Button botonRegistrate = findViewById(R.id.botonRegistrate);
         TextView textYaInicia = findViewById(R.id.textYaInicia);
 
+        // Texto subrayado
         textYaInicia.setPaintFlags(textYaInicia.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        String finalToken = token;
+        // Boton que lleva a la actividad de inicio de sesion
         textYaInicia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +54,7 @@ public class Registro extends AppCompatActivity {
             }
         });
 
+        // Boton para el registro
         botonRegistrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +67,7 @@ public class Registro extends AppCompatActivity {
         });
     }
 
+    // Metodo que lanza la peticion para el registro
     public void registrarUsuario(String usuario, String contra, String token){
 
         Data data = new Data.Builder()

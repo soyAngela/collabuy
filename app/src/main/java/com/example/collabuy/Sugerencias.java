@@ -9,7 +9,6 @@ import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,14 +26,11 @@ import java.util.ArrayList;
 public class Sugerencias extends AppCompatActivity {
 
     ListView listView;
-
     ArrayAdapter<String> adapter;
-
     ArrayList<String> lista = new ArrayList<>();
     SearchView searchView;
     ImageView botonAnadir;
     String nombreLista;
-
     String listId;
     private ArrayList<String> idList = new ArrayList<>();
 
@@ -43,14 +39,17 @@ public class Sugerencias extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sugerencias);
 
+        // Se recuperan los datos de la lista
         Bundle extras = getIntent().getExtras();
         listId = extras.getString("idLista");
         nombreLista = extras.getString("nombreLista");
 
+        // Declarar los objetos
         listView = findViewById(R.id.listaSugerencias);
         searchView = findViewById(R.id.searchView);
         botonAnadir = findViewById(R.id.botonAnadir);
 
+        // Boton de anadir sugerencias
         botonAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +59,7 @@ public class Sugerencias extends AppCompatActivity {
 
         rellenarLista();
 
-
+        // Se crea el filtro para la lista
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -74,11 +73,17 @@ public class Sugerencias extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                if(newText.equals("")){
+                    rellenarLista();
+                }
+                if(adapter != null){
+                    adapter.getFilter().filter(newText);
+                }
                 return false;
             }
         });
 
+        // Al hacer click en un elemento de la lista
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,6 +93,7 @@ public class Sugerencias extends AppCompatActivity {
         });
     }
 
+    // Metodo que lanza la peticion para anadir un nuevo elemento a la lista
     private void anadirElemento(String listId, String idProd) {
         Data data = new Data.Builder()
                 .putString("url", "anadir_sugerencia_lista.php")
@@ -114,6 +120,7 @@ public class Sugerencias extends AppCompatActivity {
         WorkManager.getInstance(this).enqueue(otwr);
     }
 
+    // Metodo que lanza la peticion para recuperar todos los elemntos sugeribles
     private void rellenarLista() {
         ArrayList<String> sugerencias = null;
         Data data = new Data.Builder()
@@ -150,6 +157,7 @@ public class Sugerencias extends AppCompatActivity {
         WorkManager.getInstance(this).enqueue(otwr);
     }
 
+    // Lanza la actividad para crear un nuevo producto
     private void crearProducto() {
         Intent intent = new Intent(Sugerencias.this, CreacionProducto.class);
         intent.putExtra("lista", listId);
@@ -158,6 +166,7 @@ public class Sugerencias extends AppCompatActivity {
         finish();
     }
 
+    // Metodo que muestra la lista de sugerencias
     private void mostrarLista(JSONArray sugerencias) throws JSONException {
         //TODO: Pasar de JSONArray a Array<List>
         for(int i = 0; i<sugerencias.length(); i++){
