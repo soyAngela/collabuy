@@ -100,7 +100,7 @@ public class pantalla_bienvenida extends AppCompatActivity {
                                 }
 
                             }else{
-                                Toast.makeText(pantalla_bienvenida.this, "No existen listas.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(pantalla_bienvenida.this, "No existen eventos.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

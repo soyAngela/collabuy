@@ -161,9 +161,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
     }
 
     private void crearProducto() throws JSONException, IOException {
-        //Dialogo para elegir entre la cámara y la galeria
-        DialogFragment dialogoalerta= new CamaraGaleriaDialog();
-        dialogoalerta.show(getSupportFragmentManager(), "1");
+
         thread = new Thread(new Runnable() {
 
             @Override

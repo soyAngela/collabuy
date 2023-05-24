@@ -20,6 +20,7 @@ import org.json.JSONException;
 
 public class ListPreferences extends AppCompatActivity{
     private String listId;
+    private String listName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class ListPreferences extends AppCompatActivity{
 
         Bundle extras = getIntent().getExtras();
         listId = extras.getString("listId");
+        listName = extras.getString("nombreLista");
+        nombreLista.setText(listName);
 
         //Funcionalidades
 

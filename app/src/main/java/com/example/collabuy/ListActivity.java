@@ -67,6 +67,7 @@ public class ListActivity extends AppCompatActivity {
                 break;
             case R.id.list_settings:
                 Intent intent = new Intent(this, ListPreferences.class);
+                intent.putExtra("nombreLista", nombreLista);
                 intent.putExtra("listId", listId);
                 startActivity(intent);
                 break;
