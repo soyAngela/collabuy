@@ -109,10 +109,8 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                 try {
                     crearProducto();
                     getTokenParticipantes(idLista);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -260,7 +258,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                                         //Se transforma a un jsonArray el String con el resultado
                                         jsonArray = new JSONArray(resultado);
                                     } catch (JSONException e) {
-                                        throw new RuntimeException(e);
+                                        e.printStackTrace();
                                     }
                                     crearGrupo(jsonArray);
                                 }
