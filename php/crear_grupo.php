@@ -1,6 +1,7 @@
 <?php
 #Se recoge la lista de tokens
 $tokens = $_POST["tokens"];
+$nombreGrupo = $_POST["nombreGrupo"];
 
 #Se define la cabecera la clave del servicio firebase
 $cabecera= array(
@@ -11,7 +12,7 @@ $cabecera= array(
 #El mensaje con sus respectivos datos y notificación
 $msg = array (
     'operation'=>"create",
-    'notification_key_name' =>"25",
+    'notification_key_name' =>"$nombreGrupo",
     'registration_ids'=>json_decode($tokens) 
 );
 #Se devuelven los datos en formato json

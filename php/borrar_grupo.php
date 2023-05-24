@@ -12,7 +12,7 @@ $cabecera= array(
 #El mensaje con sus respectivos datos y notificación
 $msg = array (
     'operation'=>"remove",
-    'notification_key_name' =>"25",
+    'notification_key_name' =>"27",
     'notification_key' => "$nk",
     'registration_ids'=>json_decode($tokens) 
 );

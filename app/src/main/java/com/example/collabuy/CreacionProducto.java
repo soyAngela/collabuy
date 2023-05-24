@@ -49,6 +49,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -272,9 +273,11 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
 
     private void crearGrupo(JSONArray tokens){
         //Se crea el grupo con todos los participantes
+        String nombreGrupo = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime());
         Data data = new Data.Builder()
                 .putString("url", "crear_grupo.php")
                 .putString("tokens", String.valueOf(tokens))
+                .putString("nombreGrupo", nombreGrupo)
                 .build();
         OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
@@ -285,7 +288,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                             if(workInfo.getOutputData().getString("resultado") != null){
                                 String resultado = workInfo.getOutputData().getString("resultado");
                                 try {
-                                    enviarMensaje(resultado, tokens);
+                                    enviarMensaje(resultado);
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -297,7 +300,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
         WorkManager.getInstance(this).enqueue(otwr);
     }
 
-    private void enviarMensaje(String nK, JSONArray tokens) throws JSONException {
+    private void enviarMensaje(String nK) throws JSONException {
         //Envio de mensaje con el aviso de nuevo producto
         JSONObject n = new JSONObject(nK);
         String k = n.getString("notification_key");
@@ -318,31 +321,7 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                         if(workInfo != null && workInfo.getState().isFinished()){
                             if(workInfo.getOutputData().getString("resultado") != null){
                                 String resultado = workInfo.getOutputData().getString("resultado");
-                                borrarGrupo(k, tokens);
-                            }else{
-                            }
-                        }
-                    }
-                });
-        WorkManager.getInstance(this).enqueue(otwr);
-    }
-
-    private void borrarGrupo(String nK, JSONArray tokens){
-        Data data = new Data.Builder()
-                .putString("url", "borrar_grupo.php")
-                .putString("nK", nK)
-                .putString("tokens", String.valueOf(tokens))
-                .build();
-
-        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPHP.class).setInputData(data).build();
-        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
-                .observe(this, new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(WorkInfo workInfo) {
-                        if(workInfo != null && workInfo.getState().isFinished()){
-                            if(workInfo.getOutputData().getString("resultado") != null){
                                 volverLista();
-                            }else{
                             }
                         }
                     }

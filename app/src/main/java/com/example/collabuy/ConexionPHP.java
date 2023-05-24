@@ -94,7 +94,7 @@ public class ConexionPHP extends Worker {
                 builder.appendQueryParameter("idLista", param.getString("idLista"));
                 break;
             case "crear_grupo.php":
-                parametros = "tokens=" + param.getString("tokens");
+                parametros = "tokens=" + param.getString("tokens") + "&nombreGrupo=" + param.getString("nombreGrupo");
                 break;
             case "mensaje.php":
                 builder.appendQueryParameter("nK", param.getString("nK"));
