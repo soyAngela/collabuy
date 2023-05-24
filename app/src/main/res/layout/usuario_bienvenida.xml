@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_tertiary">
+    android:background="@color/green_main">
 
     <TextView
         android:id="@+id/textoBienvenido"
@@ -14,7 +14,7 @@
         android:layout_marginBottom="55dp"
         android:fontFamily="@font/montserratregular"
         android:gravity="center_horizontal"
-        android:text="Bienvenid@"
+        android:text="@string/welcome_title"
         android:textSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/listaNombres"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="15dp"
-        android:background="@color/white"
+        android:background="@color/green_quaternary"
         app:layout_constraintBottom_toTopOf="@+id/botonNuevaLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -42,18 +42,17 @@
         android:layout_height="66dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="2dp"
-        android:text=" + Nueva Lista"
-        android:textSize="25dp"
+        android:backgroundTint="@color/green_secondary"
         android:fontFamily="@font/montserratbold"
-        android:backgroundTint="@color/green_gray"
+        android:text="@string/welcome_new"
         android:textColor="@color/black"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listaNombres"
-        app:layout_constraintVertical_bias="1.0"
-        />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/text_nomUsu"
@@ -63,8 +62,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="10dp"
-        android:text="nomUsuario"
         android:fontFamily="@font/montserratbold"
+        android:text="nomUsuario"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/listaNombres"
         app:layout_constraintEnd_toStartOf="@+id/btn_logout"
