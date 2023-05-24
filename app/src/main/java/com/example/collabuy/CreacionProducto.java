@@ -110,8 +110,12 @@ public class CreacionProducto extends AppCompatActivity implements CamaraGaleria
                 TextView dP = findViewById(R.id.nuevosProductoDesc);
                 descripcion = dP.getText().toString();
                 try {
-                    crearProducto();
-                    getTokenParticipantes(idLista);
+                    if(nombreProducto.equals("") || descripcion.equals("") || foto == null){
+                        Toast.makeText(CreacionProducto.this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+                    }else{
+                        crearProducto();
+                        getTokenParticipantes(idLista);
+                    }
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
