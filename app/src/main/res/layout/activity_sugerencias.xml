@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_quaternary"
     tools:context=".Sugerencias">
 
     <SearchView
@@ -12,8 +13,9 @@
         android:layout_height="49dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="80dp"
+        android:background="@color/green_quaternary"
         android:iconifiedByDefault="false"
-        android:queryHint="Buscar"
+        android:queryHint="@string/suggestions_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +26,8 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="81dp"
         android:layout_marginEnd="48dp"
+        android:cropToPadding="false"
+        app:circularflow_radiusInDP="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchView"
         app:layout_constraintTop_toTopOf="parent"

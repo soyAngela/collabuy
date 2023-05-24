@@ -22,6 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class pantalla_bienvenida extends AppCompatActivity {
+
+    private final int TIME_INTERVAL = 1000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,5 +113,17 @@ public class pantalla_bienvenida extends AppCompatActivity {
         listaListas.setAdapter(adaptador);
 
     }
+
+    @Override
+    public void onBackPressed() {  //https://www.tutorialspoint.com/how-to-make-back-button-twice-to-close-an-activity-in-android
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), getString(R.string.welcome_backMessage), Toast.LENGTH_SHORT).show();
+        }
+        mBackPressed = System.currentTimeMillis();
+    }
+
 
 }

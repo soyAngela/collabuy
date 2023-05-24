@@ -1,6 +1,40 @@
 <resources>
-    <string name="app_name" translatable="false">collabuy</string>
+    <string name="app_name" translatable="false">Collabuy</string>
     <string name="list_menu_add">Add</string>
     <string name="list_menu_listSettings">List settings</string>
     <string name="list_menu_abandon">Abandon list</string>
+    <string name="suggestions_search">Search</string>
+    <string name="login_title">Login</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_signIn">Sign In</string>
+    <string name="login_signUp">Sign Up</string>
+    <string name="login_noAccount">Still have no account?</string>
+    <string name="main_welcome">Welcome to</string>
+    <string name="main_signIn">Sign In</string>
+    <string name="main_or">or</string>
+    <string name="main_signUp">Sign Up</string>
+    <string name="loading">Loading</string>
+    <string name="newList_title">Access List</string>
+    <string name="newList_name">Name</string>
+    <string name="newList_key">Key</string>
+    <string name="newList_add">Add List</string>
+    <string name="newList_create">Create List</string>
+    <string name="newProduct_name">Name</string>
+    <string name="newProduct_description">Description</string>
+    <string name="newProduct_add">Add Product</string>
+    <string name="welcome_title">Welcome</string>
+    <string name="welcome_new">+ New List</string>
+    <string name="preferences_title">Edit List</string>
+    <string name="preferences_name">Name</string>
+    <string name="preferences_key">Key</string>
+    <string name="preferences_save">Save Changes</string>
+    <string name="preferences_cancel">Cancel</string>
+    <string name="signUp_title">Sign Up</string>
+    <string name="signUp_username">Username</string>
+    <string name="signUp_password">Password</string>
+    <string name="signUp_signUp">Sign Up</string>
+    <string name="signUp_signIn">Sign In</string>
+    <string name="signUp_accountAlready">Have an account already?</string>
+    <string name="welcome_backMessage">Press twice to exit</string>
 </resources>
